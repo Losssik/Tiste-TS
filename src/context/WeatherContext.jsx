@@ -13,13 +13,13 @@ export const weatherReducer = (state, action) => {
   }
 };
 
-export const WeatherCOntextProvider = ({ children }) => {
+export const WeatherContextProvider = ({ children }) => {
   const [state, dispatch] = useReducer(weatherReducer, {
     city: null,
   });
 
   return (
-    <WeatherContext.Provider value={{ state, dispatch }}>
+    <WeatherContext.Provider value={{ ...state, dispatch }}>
       {children}
     </WeatherContext.Provider>
   );

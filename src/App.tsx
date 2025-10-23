@@ -1,10 +1,12 @@
 import { useEffect } from "react";
+import { useWeatherContext } from "./hooks/useWeatherContext";
 
 interface WeatherData {
   name: string;
 }
 
 function App() {
+  const { dispatch } = useWeatherContext();
   useEffect(() => {
     //promise <void> when no return keyword and async fnc
     const fetchCurrentWeather = async (): Promise<void> => {
@@ -15,16 +17,20 @@ function App() {
           }`
         );
         const data: WeatherData = await response.json();
-        console.log("done", data);
+
+        if (response.ok) {
+          console.log("done", data);
+          dispatch({ type: "GET_WEATHER", payload: data });
+        }
       } catch (error) {
         console.log(error);
       }
     };
 
     fetchCurrentWeather();
-  }, []);
+  }, [dispatch]);
 
-  return <div className=" bg-blue-900">Tailwind</div>;
+  return <div className=" bg-blue-900">Weather for</div>;
 }
 
 export default App;
