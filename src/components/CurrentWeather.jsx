@@ -4,10 +4,12 @@ const CurrentWeather = () => {
   const { city } = useWeatherContext();
   return (
     <div>
-      <p className=" bg-slate-50">
-        City name:
-        {city ? city.name : "loading"}
-      </p>
+      <div className=" bg-slate-50">
+        <div className="bg-slate-50">
+          <p>Location: {city?.name ?? ""}</p>
+          <p>Temperature: {city?.main.temp ?? "-"}</p>
+        </div>
+      </div>
     </div>
   );
 };
