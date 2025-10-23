@@ -1,7 +1,12 @@
 import { useEffect } from "react";
 
+interface WeatherData {
+  name: string;
+}
+
 function App() {
   useEffect(() => {
+    //promise <void> when no return keyword and async fnc
     const fetchCurrentWeather = async (): Promise<void> => {
       try {
         const response = await fetch(
@@ -9,7 +14,7 @@ function App() {
             import.meta.env.VITE_WEATHER_API_KEY
           }`
         );
-        const data = await response.json();
+        const data: WeatherData = await response.json();
         console.log("done", data);
       } catch (error) {
         console.log(error);
