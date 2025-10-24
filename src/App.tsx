@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { useWeatherContext } from "./hooks/useWeatherContext";
+import CurrentWeather from "./components/CurrentWeather";
 import type { WeatherData } from "./types/weather";
 
 function App() {
@@ -27,7 +28,11 @@ function App() {
     fetchCurrentWeather();
   }, [dispatch]);
 
-  return <div className=" bg-blue-900">Weather for</div>;
+  return (
+    <>
+      <CurrentWeather />
+    </>
+  );
 }
 
 export default App;
