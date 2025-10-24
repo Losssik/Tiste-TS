@@ -3,5 +3,24 @@
 @tailwind utilities;
 
 body {
-  background-color: black;
+  background-color: oklch(28.2% 0.091 267.935);
+  color: oklch(95% 0 0);
+  font-family: "Lato", sans-serif;
+  line-height: 1.5;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+input,
+button,
+textarea {
+  font: inherit;
+}
+
+a {
+  text-decoration: none;
 }
