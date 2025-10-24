@@ -1,12 +1,6 @@
 import { useEffect } from "react";
 import { useWeatherContext } from "./hooks/useWeatherContext";
-
-export type WeatherData = {
-  name: string;
-  main: {
-    temp: number;
-  };
-};
+import type { WeatherData } from "./types/weather";
 
 function App() {
   const { dispatch } = useWeatherContext();

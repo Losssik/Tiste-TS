@@ -4,7 +4,7 @@ import {
   type Dispatch,
   type ReactNode,
 } from "react";
-import type { WeatherData } from "../App";
+import type { WeatherData } from "../types/weather";
 
 type ChildrenProp = {
   children: ReactNode;
@@ -18,6 +18,7 @@ type WeatherAction = { type: "GET_WEATHER"; payload: WeatherData };
 
 type WeatherContextType = {
   dispatch: Dispatch<WeatherAction>;
+  city: WeatherData | null;
 };
 
 export const WeatherContext = createContext<WeatherContextType | undefined>(
