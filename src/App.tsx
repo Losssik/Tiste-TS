@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { useWeatherContext } from "./hooks/useWeatherContext";
 import CurrentWeather from "./components/CurrentWeather";
 import type { WeatherData } from "./types/weather";
+import Map from "./components/Map";
 
 function App() {
   const { dispatch } = useWeatherContext();
@@ -31,6 +32,7 @@ function App() {
   return (
     <>
       <CurrentWeather />
+      <Map />
     </>
   );
 }
