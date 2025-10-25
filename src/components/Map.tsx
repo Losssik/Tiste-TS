@@ -10,7 +10,7 @@ import { useState } from "react";
 import FetchWeather from "./FetchWeather";
 
 const Map = () => {
-  const wejherowoCenter = [54.605, 18.2355];
+  const wejherowoCenter: [number, number] = [54.605, 18.2355];
   const [markerPosition, setMarkerPosition] = useState(wejherowoCenter);
   const [lat, setLat] = useState(54.605);
   const [lng, setLng] = useState(18.2355);

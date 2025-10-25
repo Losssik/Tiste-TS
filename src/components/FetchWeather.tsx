@@ -1,7 +1,12 @@
 import { useEffect } from "react";
 import { useWeatherContext } from "../hooks/useWeatherContext";
 
-const FetchWeather = ({ lat, lng }) => {
+type FetchWeatherProps = {
+  lat: number;
+  lng: number;
+};
+
+const FetchWeather = ({ lat, lng }: FetchWeatherProps) => {
   const { dispatch } = useWeatherContext();
 
   useEffect(() => {
@@ -24,6 +29,8 @@ const FetchWeather = ({ lat, lng }) => {
     };
     fetchWeather();
   }, [lat, lng, dispatch]);
+
+  return null;
 };
 
 export default FetchWeather;
