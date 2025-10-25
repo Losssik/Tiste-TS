@@ -1,23 +1,36 @@
-import { MapContainer, Marker, TileLayer, useMapEvents } from "react-leaflet";
+import {
+  MapContainer,
+  Marker,
+  TileLayer,
+  useMapEvents,
+  useMap,
+} from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import { useState } from "react";
+import FetchWeather from "./FetchWeather";
 
 const Map = () => {
-  const PositionHandler = () => {
+  const wejherowoCenter = [54.605, 18.2355];
+  const [markerPosition, setMarkerPosition] = useState(wejherowoCenter);
+  const [lat, setLat] = useState(54.605);
+  const [lng, setLng] = useState(18.2355);
+
+  const ClickHandler = () => {
+    const map = useMap();
     useMapEvents({
       click(e) {
-        console.log("pozycja", e);
-        setMarkerPosition([e.latlng.lat, e.latlng.lng]);
+        const { lat, lng } = e.latlng;
+        setMarkerPosition([lat, lng]);
+        map.flyTo([lat, lng], map.getZoom(), { duration: 0.5 });
+        setLat(lat);
+        setLng(lng);
       },
     });
     return null;
   };
-  const wejherowoCenter = [54.605, 18.2355];
-  const [markerPosition, setMarkerPosition] = useState(wejherowoCenter);
 
   return (
-    <div>
-      <h2>moja mapa idzie tu</h2>
+    <>
       <MapContainer
         center={wejherowoCenter}
         zoom={13}
@@ -25,12 +38,13 @@ const Map = () => {
       >
         <TileLayer
           url="https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}"
-          attribution="&copy; <a href='https://www.openstreetmap.org/copyright'>OpenStreetMap</a> contributors"
+          attribution="&copy; OpenStreetMap contributors"
         />
-        <Marker position={markerPosition}></Marker>
-        <PositionHandler />
+        <Marker position={markerPosition} />
+        <ClickHandler />
       </MapContainer>
-    </div>
+      <FetchWeather lat={lat} lng={lng} />
+    </>
   );
 };
 
