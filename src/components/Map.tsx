@@ -6,7 +6,7 @@ import {
   useMap,
 } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import FetchWeather from "./FetchWeather";
 
 const Map = () => {
@@ -14,6 +14,8 @@ const Map = () => {
   const [markerPosition, setMarkerPosition] = useState(wejherowoCenter);
   const [lat, setLat] = useState(54.605);
   const [lng, setLng] = useState(18.2355);
+
+  useEffect(() => {}, []);
 
   const ClickHandler = () => {
     const map = useMap();

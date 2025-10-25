@@ -3,6 +3,7 @@ import { useWeatherContext } from "./hooks/useWeatherContext";
 import CurrentWeather from "./components/CurrentWeather";
 import type { WeatherData } from "./types/weather";
 import Map from "./components/Map";
+import GetPosition from "./components/GetPosition";
 
 function App() {
   const { dispatch } = useWeatherContext();
@@ -33,6 +34,7 @@ function App() {
     <>
       <CurrentWeather />
       <Map />
+      <GetPosition />
     </>
   );
 }
