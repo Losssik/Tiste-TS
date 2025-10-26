@@ -4,6 +4,7 @@ import CurrentWeather from "./components/CurrentWeather";
 import type { WeatherData } from "./types/weather";
 import Map from "./components/Map";
 import GetPosition from "./components/GetPosition";
+import GetPositionButton from "./components/GetPositionButton";
 
 function App() {
   const { dispatch } = useWeatherContext();
@@ -32,6 +33,7 @@ function App() {
 
   return (
     <>
+      <GetPositionButton />
       <CurrentWeather />
       <Map />
       <GetPosition />

@@ -11,14 +11,30 @@ import FetchWeather from "./FetchWeather";
 
 const Map = () => {
   const wejherowoCenter: [number, number] = [54.605, 18.2355];
-  const [markerPosition, setMarkerPosition] = useState(wejherowoCenter);
-  const [lat, setLat] = useState(54.605);
-  const [lng, setLng] = useState(18.2355);
+  const [markerPosition, setMarkerPosition] =
+    useState<[number, number]>(wejherowoCenter);
+  const [lat, setLat] = useState(wejherowoCenter[0]);
+  const [lng, setLng] = useState(wejherowoCenter[1]);
 
-  useEffect(() => {}, []);
+  // get user position
+  useEffect(() => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          const { latitude, longitude } = position.coords;
+          setMarkerPosition([latitude, longitude]);
+          setLat(latitude);
+          setLng(longitude);
+        },
+        (error) => console.error(error)
+      );
+    }
+  }, []);
 
+  // click on Map
   const ClickHandler = () => {
     const map = useMap();
+
     useMapEvents({
       click(e) {
         const { lat, lng } = e.latlng;
@@ -28,13 +44,18 @@ const Map = () => {
         setLng(lng);
       },
     });
+
+    useEffect(() => {
+      map.flyTo(markerPosition, map.getZoom(), { duration: 0.5 });
+    }, [map]);
+
     return null;
   };
 
   return (
     <>
       <MapContainer
-        center={wejherowoCenter}
+        center={markerPosition}
         zoom={13}
         style={{ height: "600px", width: "100%" }}
       >
