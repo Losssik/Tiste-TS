@@ -5,6 +5,10 @@ import type { WeatherData } from "./types/weather";
 import Map from "./components/Map";
 import GetPosition from "./components/GetPosition";
 import GetPositionButton from "./components/GetPositionButton";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import Navbar from "./components/Navbar";
+import Home from "./pages/Home";
+import About from "./pages/About";
 
 function App() {
   const { dispatch } = useWeatherContext();
@@ -33,10 +37,13 @@ function App() {
 
   return (
     <>
-      <GetPositionButton />
-      <CurrentWeather />
-      <Map />
-      <GetPosition />
+      <Router>
+        <Navbar />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/about" element={<About />} />
+        </Routes>
+      </Router>
     </>
   );
 }
