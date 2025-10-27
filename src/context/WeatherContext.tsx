@@ -10,15 +10,24 @@ type ChildrenProp = {
   children: ReactNode;
 };
 
-type WeatherState = {
-  city: WeatherData | null;
+type Coords = {
+  lat: number;
+  lon: number;
 };
 
-type WeatherAction = { type: "GET_WEATHER"; payload: WeatherData };
+type WeatherState = {
+  city: WeatherData | null;
+  coords: Coords | null;
+};
+
+type WeatherAction =
+  | { type: "GET_WEATHER"; payload: WeatherData }
+  | { type: "SET_COORDS"; payload: Coords };
 
 type WeatherContextType = {
   dispatch: Dispatch<WeatherAction>;
   city: WeatherData | null;
+  coords: Coords | null;
 };
 
 export const WeatherContext = createContext<WeatherContextType | undefined>(
@@ -28,9 +37,9 @@ export const WeatherContext = createContext<WeatherContextType | undefined>(
 export const weatherReducer = (state: WeatherState, action: WeatherAction) => {
   switch (action.type) {
     case "GET_WEATHER":
-      return {
-        city: action.payload,
-      };
+      return { ...state, city: action.payload };
+    case "SET_COORDS":
+      return { ...state, coords: action.payload };
     default:
       return state;
   }
@@ -39,6 +48,7 @@ export const weatherReducer = (state: WeatherState, action: WeatherAction) => {
 export const WeatherContextProvider = ({ children }: ChildrenProp) => {
   const [state, dispatch] = useReducer(weatherReducer, {
     city: null,
+    coords: null,
   });
 
   return (

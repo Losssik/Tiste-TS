@@ -8,15 +8,27 @@ import {
 import "leaflet/dist/leaflet.css";
 import { useEffect, useState } from "react";
 import FetchWeather from "./FetchWeather";
+import { useWeatherContext } from "../hooks/useWeatherContext";
 
 const Map = () => {
+  const { coords } = useWeatherContext();
   const wejherowoCenter: [number, number] = [54.605, 18.2355];
   const [markerPosition, setMarkerPosition] =
     useState<[number, number]>(wejherowoCenter);
   const [lat, setLat] = useState(wejherowoCenter[0]);
   const [lng, setLng] = useState(wejherowoCenter[1]);
 
-  // get user position
+  // when coords are changing update marker on the map
+  useEffect(() => {
+    if (coords) {
+      const { lat, lon } = coords;
+      setMarkerPosition([lat, lon]);
+      setLat(lat);
+      setLng(lon);
+    }
+  }, [coords]);
+
+  // get user position when first render
   useEffect(() => {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(

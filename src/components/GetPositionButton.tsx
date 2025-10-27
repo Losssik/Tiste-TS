@@ -1,8 +1,16 @@
+import { useWeatherContext } from "../hooks/useWeatherContext";
+
 const GetPositionButton = () => {
+  const { dispatch } = useWeatherContext();
   const handleClick = () => {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition((position) => {
-        console.log(position);
+        const { latitude, longitude } = position.coords;
+
+        dispatch({
+          type: "SET_COORDS",
+          payload: { lat: latitude, lon: longitude },
+        });
       });
     }
   };

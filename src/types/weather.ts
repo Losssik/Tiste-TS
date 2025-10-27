@@ -7,6 +7,10 @@ export type WeatherData = {
   clouds: {
     all: number;
   };
+  coord: {
+    lat: number;
+    lon: number;
+  };
   wind: {
     deg: number;
     gust?: number;
