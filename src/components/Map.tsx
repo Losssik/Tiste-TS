@@ -18,16 +18,6 @@ const Map = () => {
   const [lat, setLat] = useState(wejherowoCenter[0]);
   const [lng, setLng] = useState(wejherowoCenter[1]);
 
-  // when coords are changing update marker on the map
-  useEffect(() => {
-    if (coords) {
-      const { lat, lon } = coords;
-      setMarkerPosition([lat, lon]);
-      setLat(lat);
-      setLng(lon);
-    }
-  }, [coords]);
-
   // get user position when first render
   useEffect(() => {
     if (navigator.geolocation) {
@@ -42,6 +32,16 @@ const Map = () => {
       );
     }
   }, []);
+
+  // when coords are changing update marker on the map
+  useEffect(() => {
+    if (coords) {
+      const { lat, lon } = coords;
+      setMarkerPosition([lat, lon]);
+      setLat(lat);
+      setLng(lon);
+    }
+  }, [coords]);
 
   // click on Map
   const ClickHandler = () => {
@@ -69,11 +69,15 @@ const Map = () => {
       <MapContainer
         center={markerPosition}
         zoom={13}
-        style={{ height: "600px", width: "100%" }}
+        style={{
+          height: "600px",
+          width: "100%",
+          filter: "brightness(0.7) contrast(1.5)",
+        }}
       >
         <TileLayer
-          url="https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}"
-          attribution="&copy; OpenStreetMap contributors"
+          url="https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}"
+          attribution="Tiles © Esri — Source: Esri, USGS, NOAA"
         />
         <Marker position={markerPosition} />
         <ClickHandler />
