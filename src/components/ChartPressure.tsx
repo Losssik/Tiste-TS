@@ -7,12 +7,10 @@ import {
   Tooltip,
   ResponsiveContainer,
 } from "recharts";
-// import { useWeatherContext } from "../hooks/useWeatherContext";
+import { useWeatherContext } from "../hooks/useWeatherContext";
 
 const ChartPressure = () => {
-  //   const { city } = useWeatherContext();
-
-  //   if (!city) return;
+  const { forecast } = useWeatherContext();
 
   const data = [
     {
@@ -38,15 +36,18 @@ const ChartPressure = () => {
   ];
 
   return (
-    <ResponsiveContainer width="100%" aspect={1.618}>
-      <BarChart data={data}>
-        <XAxis dataKey="name" />
-        <YAxis />
-        <Tooltip />
-        <Legend />
-        <Bar dataKey="pressure" name="pressure (hPa)" />
-      </BarChart>
-    </ResponsiveContainer>
+    <>
+      <h2>Weather for {forecast?.city.name}</h2>
+      <ResponsiveContainer width="100%" aspect={1.618}>
+        <BarChart data={data}>
+          <XAxis dataKey="name" />
+          <YAxis />
+          <Tooltip />
+          <Legend />
+          <Bar dataKey="pressure" name="pressure (hPa)" />
+        </BarChart>
+      </ResponsiveContainer>
+    </>
   );
 };
 

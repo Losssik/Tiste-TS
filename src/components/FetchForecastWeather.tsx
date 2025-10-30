@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import { useWeatherContext } from "../hooks/useWeatherContext";
 
 type FetchWeatherProps = {
   lat: number;
@@ -6,6 +7,7 @@ type FetchWeatherProps = {
 };
 
 const FetchForecastWeather = ({ lat, lng }: FetchWeatherProps) => {
+  const { dispatch } = useWeatherContext();
   useEffect(() => {
     const fetchForecast = async () => {
       try {
@@ -19,6 +21,7 @@ const FetchForecastWeather = ({ lat, lng }: FetchWeatherProps) => {
 
         if (response.ok) {
           console.log(data);
+          dispatch({ type: "GET_FORECAST", payload: data });
         }
       } catch (err) {
         console.log(err);
@@ -26,7 +29,7 @@ const FetchForecastWeather = ({ lat, lng }: FetchWeatherProps) => {
     };
 
     fetchForecast();
-  }, [lat, lng]);
+  }, [lat, lng, dispatch]);
 
   return null;
 };
