@@ -4,11 +4,14 @@ import {
   TileLayer,
   useMapEvents,
   useMap,
+  Popup,
 } from "react-leaflet";
+import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 import { useEffect, useState } from "react";
 import FetchWeather from "./FetchWeather";
 import { useWeatherContext } from "../hooks/useWeatherContext";
+import FetchForecastWeather from "./FetchForecastWeather";
 
 const Map = () => {
   const { coords } = useWeatherContext();
@@ -79,10 +82,16 @@ const Map = () => {
           url="https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}"
           attribution="Tiles © Esri — Source: Esri, USGS, NOAA"
         />
-        <Marker position={markerPosition} />
+        <Marker position={markerPosition}>
+          <Popup minWidth={200} closeButton={false}>
+            test
+          </Popup>
+        </Marker>
+
         <ClickHandler />
       </MapContainer>
       <FetchWeather lat={lat} lng={lng} />
+      <FetchForecastWeather lat={lat} lng={lng} />
     </>
   );
 };
