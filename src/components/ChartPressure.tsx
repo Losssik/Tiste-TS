@@ -1,51 +1,33 @@
-import {
-  BarChart,
-  Bar,
-  XAxis,
-  YAxis,
-  Legend,
-  Tooltip,
-  ResponsiveContainer,
-} from "recharts";
+import { LineChart, Line, YAxis, Tooltip, ResponsiveContainer } from "recharts";
 import { useWeatherContext } from "../hooks/useWeatherContext";
 
 const ChartPressure = () => {
   const { forecast } = useWeatherContext();
 
-  const data = [
-    {
-      name: "wejherowo",
-      pressure: 1011,
-    },
-    {
-      name: "wierzchucino",
-      pressure: 1032,
-    },
-    {
-      name: "wejherowo",
-      pressure: 1011,
-    },
-    {
-      name: "wierzchucino",
-      pressure: 1032,
-    },
-    {
-      name: "brzyno",
-      pressure: 951,
-    },
-  ];
+  if (!forecast) return <p>Loading forecast...</p>;
+
+  const data = forecast.list.map((item) => ({
+    pressure: item.main.pressure,
+  }));
 
   return (
     <>
-      <h2>Weather for {forecast?.city.name}</h2>
-      <ResponsiveContainer width="100%" aspect={1.618}>
-        <BarChart data={data}>
-          <XAxis dataKey="name" />
-          <YAxis />
+      <h2 className="text-xl font-semibold mb-2">
+        Weather forecast for {forecast.city.name}
+      </h2>
+
+      <ResponsiveContainer width="100%" aspect={1.6} height="600px">
+        <LineChart data={data}>
+          <YAxis domain={[950, 1050]} />
           <Tooltip />
-          <Legend />
-          <Bar dataKey="pressure" name="pressure (hPa)" />
-        </BarChart>
+          <Line
+            type="monotone"
+            dataKey="pressure"
+            name="Pressure (hPa)"
+            stroke="#8884d8"
+            strokeWidth={2}
+          />
+        </LineChart>
       </ResponsiveContainer>
     </>
   );
