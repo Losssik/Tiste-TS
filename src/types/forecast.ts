@@ -7,6 +7,7 @@ export type WeatherForecast = {
     dt_txt: string;
     main: {
       pressure: number;
+      temp: number;
     };
   }[];
 };

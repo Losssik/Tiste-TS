@@ -16,7 +16,7 @@ const ChartPressure = () => {
 
   const data = forecast.list.map((item) => ({
     pressure: item.main.pressure,
-    dt_txt: item.dt_txt,
+    dt_txt: item.dt_txt.slice(0, -3),
   }));
 
   return (
