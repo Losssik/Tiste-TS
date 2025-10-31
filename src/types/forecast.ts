@@ -4,6 +4,7 @@ export type WeatherForecast = {
   };
   list: {
     dt: number;
+    dt_txt: string;
     main: {
       pressure: number;
     };

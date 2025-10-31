@@ -7,7 +7,6 @@ body {
   color: oklch(95% 0 0);
   font-family: "Lato", sans-serif;
   line-height: 1.5;
-  max-width: 1200px;
   margin: 0 auto;
 }
 
