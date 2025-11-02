@@ -16,7 +16,7 @@ const ChartPressure = () => {
 
   const data = forecast.list.map((item) => ({
     pressure: item.main.pressure,
-    dt_txt: item.dt_txt.slice(0, -3),
+    dt_txt: item.dt_txt.slice(5, -3),
   }));
 
   return (
@@ -31,6 +31,7 @@ const ChartPressure = () => {
             bottom: 5,
             left: 0,
           }}
+          responsive
         >
           <CartesianGrid stroke="rgba(173, 216, 230, 0.1)" />
           <YAxis domain={[970, 1050]} />

@@ -5,6 +5,9 @@ export type WeatherForecast = {
   list: {
     dt: number;
     dt_txt: string;
+    clouds: {
+      all: number;
+    };
     main: {
       pressure: number;
       temp: number;
