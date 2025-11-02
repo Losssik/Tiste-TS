@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import RemoveFromFavorites from "./RemoveFromFavorites";
 
 type Favorites = {
   lat: number;
@@ -21,6 +22,7 @@ const GetFavorites = () => {
           <div>
             Lat: {fav.lat}, Lon: {fav.lon}
           </div>
+          <RemoveFromFavorites lat={fav.lat} lon={fav.lon} />
         </div>
       ))}
     </div>
