@@ -24,7 +24,7 @@ const ChartClouds = () => {
       <BarChart data={data} responsive>
         <XAxis dataKey="date" hide />
         <YAxis />
-        <Bar dataKey="clouds" fill="#8884d8" />
+        <Bar dataKey="clouds" stroke="#3182BD" fill="#3182BD" />
         <Tooltip
           contentStyle={{
             backgroundColor: "rgba(0,0,0,0.85)",

@@ -33,13 +33,11 @@ const ChartPressure = () => {
           }}
           responsive
         >
-          <CartesianGrid stroke="rgba(173, 216, 230, 0.1)" />
+          <CartesianGrid stroke="#13226A" />
           <YAxis domain={[970, 1050]} />
           <XAxis
             dataKey="dt_txt"
-            hide
             ticks={[
-              data[0].dt_txt,
               data[8].dt_txt,
               data[16].dt_txt,
               data[24].dt_txt,
@@ -63,7 +61,7 @@ const ChartPressure = () => {
             type="monotone"
             dataKey="pressure"
             name="Pressure (hPa)"
-            stroke="#8884d8"
+            stroke="#3182BD"
             strokeWidth={1}
             dot={false}
           />

@@ -6,6 +6,7 @@ import {
   Tooltip,
   XAxis,
   YAxis,
+  CartesianGrid,
 } from "recharts";
 import { useWeatherContext } from "../hooks/useWeatherContext";
 
@@ -25,12 +26,21 @@ const ChartTemperature = () => {
       <ResponsiveContainer width="100%" height={400}>
         <LineChart data={data}>
           <YAxis />
-          <XAxis dataKey="dt_txt" hide />
+          <XAxis
+            dataKey="dt_txt"
+            ticks={[
+              data[8].dt_txt,
+              data[16].dt_txt,
+              data[24].dt_txt,
+              data[32].dt_txt,
+            ]}
+          />
+          <CartesianGrid stroke="#13226A" />
           <Line
             dataKey="temperature"
             type="monotone"
             name="temp"
-            stroke="#8884d8"
+            stroke="#3182BD"
             strokeWidth={1}
             dot={false}
           />
