@@ -15,6 +15,13 @@ const GetFavorites = () => {
     setFavorites(parsedList);
   }, []);
 
+  // to update ui state in get list component
+  const handleRemoved = (lat: number, lon: number) => {
+    setFavorites((prev) =>
+      prev.filter((fav) => fav.lat !== lat && fav.lon !== lon)
+    );
+  };
+
   return (
     <div>
       {favorites.map((fav, index) => (
@@ -22,7 +29,11 @@ const GetFavorites = () => {
           <div>
             Lat: {fav.lat}, Lon: {fav.lon}
           </div>
-          <RemoveFromFavorites lat={fav.lat} lon={fav.lon} />
+          <RemoveFromFavorites
+            onRemoved={handleRemoved}
+            lat={fav.lat}
+            lon={fav.lon}
+          />
         </div>
       ))}
     </div>
