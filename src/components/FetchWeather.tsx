@@ -22,6 +22,7 @@ const FetchWeather = ({ lat, lng }: FetchWeatherProps) => {
 
         if (response.ok) {
           dispatch({ type: "GET_WEATHER", payload: data });
+          console.log(data);
         }
       } catch (err) {
         console.log(err);
