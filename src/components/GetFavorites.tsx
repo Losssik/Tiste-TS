@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import RemoveFromFavorites from "./RemoveFromFavorites";
-import FetchWeather from "./FetchWeather";
+import FetchFavoriteList from "./FetchFavoriteList";
 import { useWeatherContext } from "../hooks/useWeatherContext";
+import RemoveFavorite from "./RemoveFavorite";
 
 type Favorites = {
   lat: number;
@@ -9,9 +9,8 @@ type Favorites = {
 }[];
 
 const GetFavorites = () => {
-  const { city } = useWeatherContext();
-
   const [favorites, setFavorites] = useState<Favorites>([]);
+  const { favorites: favoriteCities } = useWeatherContext();
 
   useEffect(() => {
     const storedList = localStorage.getItem("favorites");
@@ -19,26 +18,25 @@ const GetFavorites = () => {
     setFavorites(parsedList);
   }, []);
 
-  // to update ui state in get list component
-  const handleRemoved = (lat: number, lon: number) => {
-    setFavorites((prev) =>
-      prev.filter((fav) => fav.lat !== lat && fav.lon !== lon)
-    );
-  };
-
   return (
     <div>
       {favorites.map((fav, index) => (
         <div key={index}>
-          <FetchWeather lat={fav.lat} lng={fav.lon} />
-          <RemoveFromFavorites
-            onRemoved={handleRemoved}
-            lat={fav.lat}
-            lon={fav.lon}
-          />
+          <FetchFavoriteList lat={fav.lat} lng={fav.lon} />
         </div>
       ))}
-      <div></div>
+
+      <div className="mt-4">
+        <h3 className="font-bold">Twoje ulubione miasta:</h3>
+        {favoriteCities.map((city, i) => (
+          <div key={i}>
+            <p>
+              {city.name} — {Math.round(city.main.temp)}°C
+            </p>
+            <RemoveFavorite lat={city.coord.lat} lon={city.coord.lon} />
+          </div>
+        ))}
+      </div>
     </div>
   );
 };
