@@ -15,6 +15,8 @@ const GetFavorites = () => {
   useEffect(() => {
     const storedList = localStorage.getItem("favorites");
     const parsedList = storedList ? JSON.parse(storedList) : [];
+
+    console.log(parsedList);
     setFavorites(parsedList);
   }, []);
 

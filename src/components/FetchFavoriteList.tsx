@@ -7,7 +7,7 @@ type FetchWeatherProps = {
 };
 
 const FetchFavoriteList = ({ lat, lng }: FetchWeatherProps) => {
-  const { dispatch } = useWeatherContext();
+  const { dispatch, favorites } = useWeatherContext();
 
   useEffect(() => {
     const fetchWeather = async () => {
@@ -18,21 +18,27 @@ const FetchFavoriteList = ({ lat, lng }: FetchWeatherProps) => {
           }`
         );
 
-        if (!response.ok) throw new Error("Błąd pobierania danych pogodowych");
-
         const data = await response.json();
 
-        // Dodaj miasto do kontekstu
-        dispatch({ type: "ADD_FAVORITE", payload: data });
+        // checking if location is already in localstorage
+        const alreadyExists = favorites.some(
+          (fav) =>
+            fav.coord.lat === data.coord.lat && fav.coord.lon === data.coord.lon
+        );
+
+        if (!alreadyExists) {
+          dispatch({ type: "ADD_FAVORITE", payload: data });
+        }
       } catch (err) {
         console.error("Fetch error:", err);
       }
     };
 
     fetchWeather();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [lat, lng, dispatch]);
 
-  return null; // ten komponent tylko fetchuje, nie renderuje
+  return null;
 };
 
 export default FetchFavoriteList;
