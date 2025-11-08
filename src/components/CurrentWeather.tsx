@@ -1,6 +1,7 @@
 import { useWeatherContext } from "../hooks/useWeatherContext";
 import AddToFavorites from "./AddToFavorites";
 import GetPositionButton from "./GetPositionButton";
+import MoonPhaseInfo from "./MoonPhaseInfo";
 import WindCompass from "./WindCompass";
 
 const CurrentWeather = () => {
@@ -26,6 +27,7 @@ const CurrentWeather = () => {
       <p>Temperature: {city?.main.temp ?? "-"}</p>
       <GetPositionButton />
       <p>Clouds: {city?.clouds.all ?? "-"}%</p>
+      <MoonPhaseInfo />
       <WindCompass />
       <p>Sunrise {formattedSunriseTime}</p>
     </div>

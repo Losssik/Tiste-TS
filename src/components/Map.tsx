@@ -12,6 +12,7 @@ import { useEffect, useState } from "react";
 import FetchWeather from "./FetchWeather";
 import { useWeatherContext } from "../hooks/useWeatherContext";
 import FetchForecastWeather from "./FetchForecastWeather";
+import FetchAstronomyDetails from "./FetchAstronomyDetails";
 
 const Map = () => {
   const { coords } = useWeatherContext();
@@ -91,6 +92,7 @@ const Map = () => {
         <ClickHandler />
       </MapContainer>
       <FetchWeather lat={lat} lng={lng} />
+      <FetchAstronomyDetails lat={lat} lon={lng} />
       <FetchForecastWeather lat={lat} lng={lng} />
     </>
   );
