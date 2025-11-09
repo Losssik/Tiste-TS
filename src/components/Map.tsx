@@ -13,6 +13,7 @@ import FetchWeather from "./FetchWeather";
 import { useWeatherContext } from "../hooks/useWeatherContext";
 import FetchForecastWeather from "./FetchForecastWeather";
 import FetchAstronomyDetails from "./FetchAstronomyDetails";
+import ProbabilityCalculator from "./ProbabilityCalculator";
 
 const Map = () => {
   const { coords } = useWeatherContext();
