@@ -17,18 +17,20 @@ type Coords = {
 };
 
 type MoonPhase = {
+  lat: number;
+  lon: number;
   moon_phase: string;
-  moon_illumination_percentage: string;
+  moon_illumination_percentage: number;
   sunrise: string;
   sunset: string;
-} | null;
+};
 
 type WeatherState = {
   city: WeatherData | null;
   coords: Coords | null;
   forecast: WeatherForecast | null;
   favorites: WeatherData[] | [];
-  moonPhase: MoonPhase;
+  moonPhases: MoonPhase[] | [];
 };
 
 type WeatherAction =
@@ -45,7 +47,7 @@ type WeatherContextType = {
   coords: Coords | null;
   forecast: WeatherForecast | null;
   favorites: WeatherData[] | [];
-  moonPhase: MoonPhase | null;
+  moonPhases: MoonPhase[] | [];
 };
 
 export const WeatherContext = createContext<WeatherContextType | undefined>(
@@ -61,7 +63,7 @@ export const weatherReducer = (state: WeatherState, action: WeatherAction) => {
     case "GET_FORECAST":
       return { ...state, forecast: action.payload };
     case "GET_MOON_PHASE":
-      return { ...state, moonPhase: action.payload };
+      return { ...state, moonPhases: [...state.moonPhases, action.payload] };
     case "ADD_FAVORITE":
       return {
         ...state,
@@ -88,7 +90,7 @@ export const WeatherContextProvider = ({ children }: ChildrenProp) => {
     coords: null,
     forecast: null,
     favorites: [],
-    moonPhase: null,
+    moonPhases: [],
   });
 
   return (

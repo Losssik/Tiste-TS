@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import FetchFavoriteList from "./FetchFavoriteList";
 import { useWeatherContext } from "../hooks/useWeatherContext";
 import RemoveFavorite from "./RemoveFavorite";
+import FetchAstronomyDetails from "./FetchAstronomyDetails";
+import DisplayAstrologyDetails from "./DisplayAstrologyDetails";
 
 type Favorites = {
   lat: number;
@@ -23,6 +25,7 @@ const GetFavorites = () => {
       {favorites.map((fav, index) => (
         <div key={index}>
           <FetchFavoriteList lat={fav.lat} lng={fav.lon} />
+          <FetchAstronomyDetails lat={fav.lat} lon={fav.lon} />
         </div>
       ))}
 
@@ -44,6 +47,11 @@ const GetFavorites = () => {
               </p>
               <p>Wind: {city.wind.speed} km/h</p>
               <p>Gust: {city.wind.gust} km/h</p>
+              <DisplayAstrologyDetails
+                lat={city.coord.lat}
+                lon={city.coord.lon}
+              />
+
               <RemoveFavorite lat={city.coord.lat} lon={city.coord.lon} />
             </div>
           );
