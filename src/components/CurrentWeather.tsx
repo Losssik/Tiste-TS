@@ -17,8 +17,8 @@ const CurrentWeather = () => {
   const date = new Date(unix_timestamp_of_sunrise * 1000);
   const hours = date.getHours();
   const minutes = date.getMinutes();
-  const seconds = date.getMinutes();
-  const formattedSunriseTime = `${hours}:${minutes}:${seconds}`;
+
+  const formattedSunriseTime = `${hours}:${minutes}`;
 
   return (
     <div className=" mt-10 flex flex-col justify-center items-center gap-1">
