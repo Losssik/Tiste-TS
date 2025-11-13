@@ -25,4 +25,10 @@ export type WeatherData = {
     description: string;
     icon: string;
   }[];
+  rain?: {
+    "1h": number;
+  };
+  snow?: {
+    "1h": number;
+  };
 };

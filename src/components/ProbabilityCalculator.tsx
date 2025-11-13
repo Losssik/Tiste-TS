@@ -10,7 +10,11 @@ const ProbabilityCalculator = () => {
   const hpa = city?.main.pressure as number;
   const clouds = city?.clouds.all as number;
   const wind_speed = city?.wind.speed as number;
-
+  const wind_gust = city?.wind.gust as number;
+  const rain = city?.rain;
+  const rain_amount = rain?.["1h"] ?? 0;
+  const snow = city?.snow;
+  const snow_amount = snow?.["1h"] ?? 0;
   // temp
   if (temperature < 0) {
     probability -= 10;
@@ -51,21 +55,62 @@ const ProbabilityCalculator = () => {
     probability -= 5;
   }
 
-  // wind
-
-  if (wind_speed < 1) {
+  // wind speed based on F. Beaufort
+  if (wind_speed < 0.2) {
     probability -= 5;
-  } else if (wind_speed < 3) {
+  } else if (wind_speed < 3.3) {
     probability += 10;
-  } else if (wind_speed < 6) {
+  } else if (wind_speed < 5.4) {
     probability += 5;
-  } else if (wind_speed < 9) {
-    probability += 0;
-  } else if (wind_speed > 9 || wind_speed < 14) {
-    probability -= 10;
+  } else if (wind_speed < 7.9) {
+    probability += 1;
+  } else if (wind_speed < 14) {
+    probability -= 13;
   } else if (wind_speed > 14) {
     probability -= 25;
+  } else if (wind_speed > 17) {
+    probability -= 50;
   }
+
+  // wind gust
+  if (wind_gust < 3.3) {
+    probability += 2;
+  } else if (wind_gust < 5.4) {
+    probability += 1;
+  } else if (wind_gust < 7.9) {
+    probability += 0;
+  } else if (wind_gust < 10.7) {
+    probability -= 8;
+  } else if (wind_gust < 13.8) {
+    probability -= 25;
+  } else if (wind_gust > 13.8) {
+    probability -= 60;
+  }
+
+  // rain
+  if (rain_amount === 0) {
+    probability += 5;
+  } else if (rain_amount < 2) {
+    probability += 10;
+  } else if (rain_amount < 5) {
+    probability += 5;
+  } else if (rain_amount >= 5) {
+    probability -= 10;
+  }
+
+  //snow
+  if (snow_amount === 0) {
+    probability += 0;
+  } else if (snow_amount < 2) {
+    probability -= 5;
+  } else if (snow_amount < 5) {
+    probability -= 12;
+  } else if (snow_amount < 8) {
+    probability -= 16;
+  } else if (snow_amount > 8) {
+    probability -= 22;
+  }
+
   return <DisplayProbability probability={probability} />;
 };
 
