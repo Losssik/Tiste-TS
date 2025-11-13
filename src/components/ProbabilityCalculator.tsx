@@ -1,9 +1,11 @@
-import { useWeatherContext } from "../hooks/useWeatherContext";
+import type { WeatherData } from "../types/weather";
 import DisplayProbability from "./DisplayProbability";
 
-const ProbabilityCalculator = () => {
-  const { city } = useWeatherContext();
+type ProbabilityCalculatorProps = {
+  city: WeatherData;
+};
 
+const ProbabilityCalculator = ({ city }: ProbabilityCalculatorProps) => {
   let probability = 50;
 
   const temperature = city?.main.temp as number;
@@ -11,6 +13,7 @@ const ProbabilityCalculator = () => {
   const clouds = city?.clouds.all as number;
   const wind_speed = city?.wind.speed as number;
   const wind_gust = city?.wind.gust as number;
+  const wind_direction = city.wind.deg as number;
   const rain = city?.rain;
   const rain_amount = rain?.["1h"] ?? 0;
   const snow = city?.snow;
@@ -85,6 +88,19 @@ const ProbabilityCalculator = () => {
     probability -= 25;
   } else if (wind_gust > 13.8) {
     probability -= 60;
+  }
+
+  // wind direction
+  if (wind_direction > 180 && wind_direction < 270) {
+    probability += 5;
+  } else if (wind_direction > 270 && wind_direction < 325) {
+    probability += 1;
+  } else if (wind_direction < 180 && wind_direction > 135) {
+    probability += 1;
+  } else if (wind_direction < 135 && wind_direction > 45) {
+    probability -= 5;
+  } else {
+    probability += 0;
   }
 
   // rain
