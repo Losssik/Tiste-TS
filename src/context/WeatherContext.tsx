@@ -11,6 +11,8 @@ type ChildrenProp = {
   children: ReactNode;
 };
 
+type Moon = string;
+
 type Coords = {
   lat: number;
   lon: number;
@@ -31,6 +33,7 @@ type WeatherState = {
   forecast: WeatherForecast | null;
   favorites: WeatherData[] | [];
   moonPhases: MoonPhase[] | [];
+  moon: Moon | null;
 };
 
 type WeatherAction =
@@ -39,6 +42,7 @@ type WeatherAction =
   | { type: "GET_FORECAST"; payload: WeatherForecast }
   | { type: "ADD_FAVORITE"; payload: WeatherData }
   | { type: "REMOVE_FAVORITE"; payload: Coords }
+  | { type: "GET_MOON"; payload: Moon }
   | { type: "GET_MOON_PHASE"; payload: MoonPhase };
 
 type WeatherContextType = {
@@ -48,6 +52,7 @@ type WeatherContextType = {
   forecast: WeatherForecast | null;
   favorites: WeatherData[] | [];
   moonPhases: MoonPhase[] | [];
+  moon: Moon | null;
 };
 
 export const WeatherContext = createContext<WeatherContextType | undefined>(
@@ -60,6 +65,8 @@ export const weatherReducer = (state: WeatherState, action: WeatherAction) => {
       return { ...state, city: action.payload };
     case "SET_COORDS":
       return { ...state, coords: action.payload };
+    case "GET_MOON":
+      return { ...state, moon: action.payload };
     case "GET_FORECAST":
       return { ...state, forecast: action.payload };
     case "GET_MOON_PHASE":
@@ -91,6 +98,7 @@ export const WeatherContextProvider = ({ children }: ChildrenProp) => {
     forecast: null,
     favorites: [],
     moonPhases: [],
+    moon: null,
   });
 
   return (

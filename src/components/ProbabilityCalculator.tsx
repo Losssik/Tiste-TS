@@ -1,3 +1,4 @@
+import { useWeatherContext } from "../hooks/useWeatherContext";
 import type { WeatherData } from "../types/weather";
 import DisplayProbability from "./DisplayProbability";
 
@@ -6,6 +7,8 @@ type ProbabilityCalculatorProps = {
 };
 
 const ProbabilityCalculator = ({ city }: ProbabilityCalculatorProps) => {
+  const { moon } = useWeatherContext();
+
   let probability = 50;
 
   const temperature = city?.main.temp as number;
@@ -51,9 +54,9 @@ const ProbabilityCalculator = ({ city }: ProbabilityCalculatorProps) => {
   } else if (clouds < 30) {
     probability += 5;
   } else if (clouds <= 70) {
-    probability += 10;
+    probability += 7;
   } else if (clouds <= 90) {
-    probability += 5;
+    probability += 4;
   } else if (clouds > 90) {
     probability -= 5;
   }
@@ -72,7 +75,9 @@ const ProbabilityCalculator = ({ city }: ProbabilityCalculatorProps) => {
   } else if (wind_speed > 14) {
     probability -= 25;
   } else if (wind_speed > 17) {
-    probability -= 50;
+    probability -= 45;
+  } else if (wind_speed > 20) {
+    probability -= 55;
   }
 
   // wind gust
@@ -98,7 +103,7 @@ const ProbabilityCalculator = ({ city }: ProbabilityCalculatorProps) => {
   } else if (wind_direction < 180 && wind_direction > 135) {
     probability += 1;
   } else if (wind_direction < 135 && wind_direction > 45) {
-    probability -= 5;
+    probability -= 7;
   } else {
     probability += 0;
   }
@@ -125,6 +130,11 @@ const ProbabilityCalculator = ({ city }: ProbabilityCalculatorProps) => {
     probability -= 16;
   } else if (snow_amount > 8) {
     probability -= 22;
+  }
+
+  //moon
+  if (moon === "WANING_CRESCENT") {
+    probability += 150;
   }
 
   return <DisplayProbability probability={probability} />;

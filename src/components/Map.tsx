@@ -12,8 +12,7 @@ import { useEffect, useState } from "react";
 import FetchWeather from "./FetchWeather";
 import { useWeatherContext } from "../hooks/useWeatherContext";
 import FetchForecastWeather from "./FetchForecastWeather";
-import FetchAstronomyDetails from "./FetchAstronomyDetails";
-import ProbabilityCalculator from "./ProbabilityCalculator";
+import FetchMoon from "./FetchMoon";
 
 const Map = () => {
   const { coords } = useWeatherContext();
@@ -38,7 +37,7 @@ const Map = () => {
     }
   }, []);
 
-  // when coords are changing update marker on the map
+  // when coords are changing then update marker on the map
   useEffect(() => {
     if (coords) {
       const { lat, lon } = coords;
@@ -93,8 +92,8 @@ const Map = () => {
         <ClickHandler />
       </MapContainer>
       <FetchWeather lat={lat} lng={lng} />
-      <FetchAstronomyDetails lat={lat} lon={lng} />
       <FetchForecastWeather lat={lat} lng={lng} />
+      <FetchMoon lat={lat} lon={lng} />
     </>
   );
 };
