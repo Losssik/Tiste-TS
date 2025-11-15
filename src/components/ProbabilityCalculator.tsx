@@ -21,6 +21,22 @@ const ProbabilityCalculator = ({ city }: ProbabilityCalculatorProps) => {
   const rain_amount = rain?.["1h"] ?? 0;
   const snow = city?.snow;
   const snow_amount = snow?.["1h"] ?? 0;
+  const country = city.sys.country;
+
+  if (country === "PL") {
+    probability -= 5;
+  }
+
+  if (
+    country === "DK" ||
+    country === "FIN" ||
+    country === "NO" ||
+    country === "SE" ||
+    country === "IE"
+  ) {
+    probability += 25;
+  }
+
   // temp
   if (temperature < 0) {
     probability -= 10;
@@ -133,9 +149,26 @@ const ProbabilityCalculator = ({ city }: ProbabilityCalculatorProps) => {
   }
 
   //moon
-  if (moon === "WANING_CRESCENT") {
-    probability += 150;
+  if (moon === "NEW_MOON") {
+    probability += 10;
+  } else if (moon === "WAXING_CRESCENT") {
+    probability += 6;
+  } else if (moon === "FIRST_QUARTER") {
+    probability += 4;
+  } else if (moon === "WAXING_GIBBOUS") {
+    probability += 6;
+  } else if (moon === "FULL_MOON") {
+    probability -= 6;
+  } else if (moon === "WANING_GIBBOUS") {
+    probability -= 6;
+  } else if (moon === "THIRD_QUARTER" || moon === "LAST_QUARTER") {
+    probability -= 8;
+  } else if (moon === "WANING_CRESCENT") {
+    probability -= 10;
   }
+
+  // min chance 0, max chance 100
+  probability = probability > 100 ? 100 : probability < 0 ? 0 : probability;
 
   return <DisplayProbability probability={probability} />;
 };

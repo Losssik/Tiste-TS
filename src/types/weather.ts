@@ -17,7 +17,9 @@ export type WeatherData = {
     speed: number;
   };
   sys: {
+    country: string;
     sunrise: number;
+    sunset: number;
   };
   weather: {
     id: number;
