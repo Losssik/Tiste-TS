@@ -23,6 +23,28 @@ const ProbabilityCalculator = ({ city }: ProbabilityCalculatorProps) => {
   const snow_amount = snow?.["1h"] ?? 0;
   const country = city.sys.country;
 
+  // best fishing months
+  const date = new Date();
+  let month_index = date.getMonth();
+  // its 0 based so now january = 1 instead of 0
+  month_index += 1;
+  const good_months = [3, 4, 5];
+  const best_months = [6, 7, 8];
+  const september = [9];
+  const bad_months = [10, 11, 12, 1, 2];
+
+  if (good_months.includes(month_index)) {
+    probability += 3;
+  } else if (best_months.includes(month_index)) {
+    probability += 5;
+  } else if (september.includes(month_index)) {
+    probability += 0;
+  } else if (bad_months.includes(month_index)) {
+    probability -= 5;
+  }
+
+  // countries
+
   if (country === "PL") {
     probability -= 5;
   }
