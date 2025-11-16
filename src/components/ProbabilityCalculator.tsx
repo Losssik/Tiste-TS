@@ -16,12 +16,17 @@ const ProbabilityCalculator = ({ city }: ProbabilityCalculatorProps) => {
   const clouds = city?.clouds.all as number;
   const wind_speed = city?.wind.speed as number;
   const wind_gust = city?.wind.gust as number;
-  const wind_direction = city.wind.deg as number;
+  const wind_direction = city.wind.deg ?? 0;
   const rain = city?.rain;
   const rain_amount = rain?.["1h"] ?? 0;
   const snow = city?.snow;
   const snow_amount = snow?.["1h"] ?? 0;
   const country = city.sys.country;
+  const sunrise = city.sys.sunrise;
+  const sunset = city.sys.sunset;
+  const now = new Date();
+  const current_unix_time = Math.floor(now.getTime() / 1000);
+  const current_time = new Date(current_unix_time * 1000);
 
   // best fishing months
   const date = new Date();
@@ -44,7 +49,6 @@ const ProbabilityCalculator = ({ city }: ProbabilityCalculatorProps) => {
   }
 
   // countries
-
   if (country === "PL") {
     probability -= 5;
   }
@@ -187,6 +191,39 @@ const ProbabilityCalculator = ({ city }: ProbabilityCalculatorProps) => {
     probability -= 8;
   } else if (moon === "WANING_CRESCENT") {
     probability -= 10;
+  }
+
+  // best sunrise hours to catch a fish
+  const sunrise_time = new Date(sunrise * 1000); // changing to ms
+  const sunrise_time_plus_2hours = new Date(sunrise_time);
+  sunrise_time_plus_2hours.setHours(sunrise_time_plus_2hours.getHours() + 2); // adding 2 hours
+
+  if (current_time > sunrise_time && current_time < sunrise_time_plus_2hours) {
+    probability += 10;
+  }
+
+  // best sunset hours to catch a fish
+  const sunset_time = new Date(sunset * 1000);
+  const sunset_time_minus_1hour = new Date(sunset_time);
+  sunset_time_minus_1hour.setHours(sunset_time_minus_1hour.getHours() - 1);
+  const sunset_time_plus_2hours = new Date(sunset_time);
+  sunset_time_plus_2hours.setHours(sunset_time_plus_2hours.getHours() + 2);
+
+  if (
+    current_time > sunset_time_minus_1hour &&
+    current_time < sunset_time_plus_2hours
+  ) {
+    probability += 10;
+  }
+
+  // worst hours
+  if (
+    current_time > sunrise_time_plus_2hours &&
+    current_time < sunset_time_minus_1hour
+  ) {
+    probability -= 5;
+  } else {
+    probability += 0;
   }
 
   // min chance 0, max chance 100
