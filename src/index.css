@@ -29,3 +29,8 @@ a {
 a:hover {
   color: #e6c200;
 }
+
+/* gover color for bars */
+.recharts-rectangle.recharts-tooltip-cursor {
+  fill: #0d3ba649;
+}

@@ -227,7 +227,7 @@ const ProbabilityCalculator = ({ city }: ProbabilityCalculatorProps) => {
   }
 
   // min chance 0, max chance 100
-  probability = probability > 100 ? 100 : probability < 0 ? 0 : probability;
+  probability = probability > 100 ? 99 : probability < 0 ? 1 : probability;
 
   return <DisplayProbability probability={probability} />;
 };

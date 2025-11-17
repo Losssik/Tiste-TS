@@ -69,12 +69,12 @@ const Map = () => {
   };
 
   return (
-    <>
+    <div>
       <MapContainer
         center={markerPosition}
         zoom={13}
         style={{
-          height: "600px",
+          height: "500px",
           width: "100%",
           filter: "brightness(0.7) contrast(1.5)",
         }}
@@ -94,7 +94,7 @@ const Map = () => {
       <FetchWeather lat={lat} lng={lng} />
       <FetchForecastWeather lat={lat} lng={lng} />
       <FetchMoon lat={lat} lon={lng} />
-    </>
+    </div>
   );
 };
 

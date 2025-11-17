@@ -7,6 +7,7 @@ import {
   Tooltip,
   ResponsiveContainer,
   Legend,
+  ReferenceLine,
 } from "recharts";
 import { useWeatherContext } from "../hooks/useWeatherContext";
 
@@ -21,7 +22,6 @@ const ChartPressure = () => {
 
   return (
     <>
-      <h2>Weather forecast for {forecast.city.name}</h2>
       <ResponsiveContainer width="100%" height={400}>
         <LineChart
           data={data}
@@ -57,6 +57,19 @@ const ChartPressure = () => {
               color: "#fff",
             }}
           />
+          <ReferenceLine
+            y={1015}
+            stroke="green"
+            strokeDasharray="3 3"
+            label="optimal max pressure"
+          />
+          <ReferenceLine
+            y={1005}
+            stroke="green"
+            strokeDasharray="3 3"
+            label="optimal min pressure"
+          />
+
           <Line
             type="monotone"
             dataKey="pressure"
