@@ -7,6 +7,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import type { WeatherData } from "./types/weather";
 import Conditions from "./pages/Conditions";
 import FavoritePlaces from "./pages/FavoritesPlaces";
+import Rivers from "./pages/Rivers";
 
 function App() {
   const { dispatch, coords } = useWeatherContext();
@@ -46,6 +47,7 @@ function App() {
         <Route path="/about" element={<About />} />
         <Route path="/conditions" element={<Conditions />} />
         <Route path="/favorites" element={<FavoritePlaces />} />
+        <Route path="/rivers" element={<Rivers />} />
       </Routes>
     </Router>
   );
