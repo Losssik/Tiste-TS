@@ -10,7 +10,7 @@ const corsOptions = {
   optionSuccessStatus: 200,
 };
 
-const URL = "https://przemyslaw-bialk.dev/";
+const URL = "https://hydro.imgw.pl/#/list/hydro?c=47&rpp=20&pf=0";
 
 app.use(cors(corsOptions));
 
@@ -18,12 +18,31 @@ app.get("/rivers", async (req: Request, res: Response) => {
   try {
     const browser = await puppeteer.launch({ headless: false });
     const page = await browser.newPage();
-    await page.goto(URL, {
-      waitUntil: "networkidle2",
+    await page.goto(URL);
+
+    // wait for slectors
+    await page.waitForSelector(".imgw-pop-btn");
+
+    await page.evaluate(() => {
+      const buttons = document.querySelectorAll(".imgw-pop-btn");
+      buttons.forEach((btn) => (btn as HTMLElement).click());
     });
 
-    const data = await page.content();
-    res.status(200).json({ data });
+    await page.waitForSelector("tr td div span");
+
+    const cities = await page.$$("tr td div span");
+    const results = [];
+
+    for (const city of cities) {
+      const text = await city.evaluate((el) => el.textContent?.trim());
+      results.push(text);
+    }
+
+    // timeout
+    await new Promise((r) => setTimeout(r, 2000));
+
+    //const data = await page.content();
+    res.status(200).json({ results });
   } catch (error) {
     res.status(500).json({ error });
   }
