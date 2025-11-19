@@ -28,20 +28,39 @@ app.get("/rivers", async (req: Request, res: Response) => {
       buttons.forEach((btn) => (btn as HTMLElement).click());
     });
 
-    await page.waitForSelector("tr td div span");
+    // need to wait for selectors always
+    await page.waitForSelector("tr td div > span");
 
-    const cities = await page.$$("tr td div span");
+    const cities = await page.$$("tr td div > span");
     const results = [];
 
     for (const city of cities) {
       const text = await city.evaluate((el) => el.textContent?.trim());
-      results.push(text);
+      results.push({ stacja: text });
+    }
+
+    await page.waitForSelector("tr");
+    const rows = await page.$$("tr");
+
+    for (const row of rows) {
+      // river
+      const river_id = await row.$("td:nth-child(3) div");
+      if (!river_id) continue;
+      const river = await river_id.evaluate((el) => el.textContent?.trim());
+
+      // water level
+      const water_id = await row.$("td:nth-child(5) div");
+      if (!water_id) continue;
+      const water_level = await water_id.evaluate((el) =>
+        el.textContent.trim()
+      );
+
+      results.push({ river: river, water_level: water_level });
     }
 
     // timeout
     await new Promise((r) => setTimeout(r, 2000));
 
-    //const data = await page.content();
     res.status(200).json({ results });
   } catch (error) {
     res.status(500).json({ error });
