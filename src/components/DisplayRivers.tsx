@@ -11,12 +11,19 @@ const DisplayRivers = ({ rivers }: RiverProps) => {
   return (
     <div>
       <h2>DISPLAY RIVERS</h2>
-      {rivers.map((river) => (
-        <div key={river.station_key}>
-          <p>{river.station}</p>
-          <p>{river.river}</p>
+
+      {rivers.length === 0 ? (
+        <p>Loading...</p>
+      ) : (
+        <div>
+          {rivers.map((river) => (
+            <div key={river.station_key}>
+              <p>{river.station}</p>
+              <p>{river.river}</p>
+            </div>
+          ))}
         </div>
-      ))}
+      )}
     </div>
   );
 };
