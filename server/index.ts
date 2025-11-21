@@ -33,34 +33,51 @@ app.get("/rivers", async (req: Request, res: Response) => {
       buttons.forEach((btn) => (btn as HTMLElement).click());
     });
 
-    const results = [];
+    // adding this able us to see and click next_button
+    await page.waitForSelector("tr:nth-child(2)");
+    // next button
+    await page.waitForSelector("button.p-paginator-next");
+    await page.evaluate(() => {
+      const next_button = document.querySelector("button.p-paginator-next");
+      (next_button as HTMLButtonElement).click();
+    });
 
     // timeout
     await new Promise((r) => setTimeout(r, 2000));
     await page.waitForSelector("tr");
     const rows = await page.$$("tr");
 
+    // results
+    const results = [];
+
     for (const row of rows) {
+      // station key
+      const station_key_id = await row.$("tr > td div");
       // station name
       const station_id = await row.$("td:nth-child(2) div > span");
-      if (!station_id) continue;
-
       // river
       const river_id = await row.$("td:nth-child(3) div");
-      if (!river_id) continue;
-
       // water level
       const water_id = await row.$("td:nth-child(5) div");
-      if (!water_id) continue;
-
       // water level change in 3 hours
       const water_level_in_3hours_id = await row.$("td:nth-child(8) div");
-      if (!water_level_in_3hours_id) continue;
-
       // trend
       const trend_id = await row.$("td:nth-child(7) span");
-      if (!trend_id) continue;
 
+      if (
+        !station_key_id ||
+        !station_id ||
+        !river_id ||
+        !water_id ||
+        !water_level_in_3hours_id ||
+        !trend_id
+      )
+        continue;
+
+      // getting data
+      const station_key = await station_key_id.evaluate((el) =>
+        el.textContent.trim()
+      );
       const station = await station_id.evaluate((el) => el.textContent.trim());
       const river = await river_id.evaluate((el) => el.textContent?.trim());
       const water_level = await water_id.evaluate((el) =>
@@ -72,6 +89,7 @@ app.get("/rivers", async (req: Request, res: Response) => {
       );
 
       results.push({
+        station_key: station_key,
         station: station,
         river: river,
         water_level: water_level,

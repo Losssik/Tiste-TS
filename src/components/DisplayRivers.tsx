@@ -1,4 +1,5 @@
 type River = {
+  station_key: string;
   station: string;
   river: string;
 };
@@ -11,7 +12,7 @@ const DisplayRivers = ({ rivers }: RiverProps) => {
     <div>
       <h2>DISPLAY RIVERS</h2>
       {rivers.map((river) => (
-        <div>
+        <div key={river.station_key}>
           <p>{river.station}</p>
           <p>{river.river}</p>
         </div>

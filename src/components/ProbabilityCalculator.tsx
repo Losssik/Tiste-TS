@@ -50,7 +50,7 @@ const ProbabilityCalculator = ({ city }: ProbabilityCalculatorProps) => {
 
   // countries
   if (country === "PL") {
-    probability -= 5;
+    probability -= 6;
   }
 
   if (
