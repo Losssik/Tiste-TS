@@ -45,7 +45,7 @@ const ProbabilityCalculator = ({ city }: ProbabilityCalculatorProps) => {
   } else if (september.includes(month_index)) {
     probability += 0;
   } else if (bad_months.includes(month_index)) {
-    probability -= 5;
+    probability -= 30;
   }
 
   // countries
@@ -64,7 +64,10 @@ const ProbabilityCalculator = ({ city }: ProbabilityCalculatorProps) => {
   }
 
   // temp
-  if (temperature < 0) {
+
+  if (temperature < -3) {
+    probability -= 33;
+  } else if (temperature < 0) {
     probability -= 10;
   } else if (temperature < 5) {
     probability -= 5;
@@ -227,7 +230,7 @@ const ProbabilityCalculator = ({ city }: ProbabilityCalculatorProps) => {
   }
 
   // min chance 0, max chance 100
-  probability = probability > 100 ? 99 : probability < 0 ? 1 : probability;
+  probability = probability >= 100 ? 99 : probability <= 0 ? 1 : probability;
 
   return <DisplayProbability probability={probability} />;
 };

@@ -10,7 +10,8 @@ const corsOptions = {
   optionSuccessStatus: 200,
 };
 
-const URL = "https://hydro.imgw.pl/#/list/hydro?c=47&rpp=50&pf=0";
+const URL =
+  "https://hydro.imgw.pl/#/list/hydro?rpp=20&pf=0&cols=c,n,r,ic,csv,csd,tc,wv,av,d3";
 
 app.use(cors(corsOptions));
 
@@ -52,6 +53,10 @@ app.get("/rivers", async (req: Request, res: Response) => {
       const water_id = await row.$("td:nth-child(5) div");
       if (!water_id) continue;
 
+      // water level change in 3 hours
+      const water_level_in_3hours_id = await row.$("td:nth-child(8) div");
+      if (!water_level_in_3hours_id) continue;
+
       // trend
       const trend_id = await row.$("td:nth-child(7) span");
       if (!trend_id) continue;
@@ -62,12 +67,16 @@ app.get("/rivers", async (req: Request, res: Response) => {
         el.textContent.trim()
       );
       const trend = await trend_id.evaluate((el) => el.textContent.trim());
+      const water_level_in_3hours = await water_level_in_3hours_id.evaluate(
+        (el) => el.textContent.trim()
+      );
 
       results.push({
+        station: station,
         river: river,
         water_level: water_level,
-        station: station,
         trend: trend,
+        water_level_in_3hours: water_level_in_3hours,
       });
     }
 
