@@ -11,7 +11,7 @@ const corsOptions = {
 };
 
 const URL =
-  "https://hydro.imgw.pl/#/list/hydro?rpp=500&pf=0&cols=c,n,r,ic,csv,csd,tc,wv,av,d3";
+  "https://hydro.imgw.pl/#/list/hydro?rpp=20&pf=0&cols=c,n,r,ic,csv,csd,tc,wv,av,d3";
 
 app.use(cors(corsOptions));
 
@@ -34,7 +34,7 @@ app.get("/rivers", async (req: Request, res: Response) => {
     });
 
     // timeout
-    await new Promise((r) => setTimeout(r, 1000));
+    //await new Promise((r) => setTimeout(r, 1000));
 
     // results
     const results = [];
@@ -95,8 +95,6 @@ app.get("/rivers", async (req: Request, res: Response) => {
       // pagination
       // adding this able us to see and click next_button
       await page.waitForSelector("tr:nth-child(2)");
-      // next button
-      await page.waitForSelector("button.p-paginator-next");
       await page.evaluate(() => {
         const next_button = document.querySelector("button.p-paginator-next");
         if (!next_button) return;
