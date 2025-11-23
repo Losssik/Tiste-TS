@@ -18,7 +18,7 @@ const GetPositionButton = () => {
   return (
     <button
       onClick={handleClick}
-      className="bg-[#FFD700] text-[#1A1A1A] hover:bg-[#E6C200] transition-colors duration-200 px-2 py-1 rounded-lg font-bold"
+      className="bg-[#FFD700] text-black hover:bg-[#E6C200] transition-colors duration-200 px-4 py-1 rounded-full font-semibold  "
     >
       get my position
     </button>

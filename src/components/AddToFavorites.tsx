@@ -34,13 +34,13 @@ const AddToFavorites = () => {
     <>
       <button
         onClick={() => handleClick(lat, lon)}
-        className="bg-blue-500 text-white p-2 rounded hover:bg-blue-600 transition"
+        className=" py-1 px-4 rounded-full font-semibold bg-green-800 hover:bg-green-900 "
       >
-        Add to favorites
+        add to favorites
       </button>
 
       {message && (
-        <div className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-black/80 text-white px-4 py-2 rounded-xl shadow-lg text-lg font-semibold z-50 ">
+        <div className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-black/80 text-white px-4 py-2 rounded-xl shadow-lg text-lg font-semibold z-50  ">
           {message}
         </div>
       )}

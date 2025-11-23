@@ -22,16 +22,23 @@ const CurrentWeather = () => {
   const formattedSunriseTime = `${hours}:${minutes}`;
 
   return (
-    <div className=" mt-10 flex flex-col justify-center items-center gap-1">
+    <div className=" mt-10 flex flex-col justify-center items-center gap-2">
       <p>Location: {city?.name ?? ""}</p>
-      <AddToFavorites />
-      <ProbabilityCalculator city={city} />
-      <img src={iconUrl} alt={city?.weather[0].description} />
-      <p>Temperature: {city?.main.temp ?? "-"}</p>
+      <img
+        src={iconUrl}
+        alt={city?.weather[0].description}
+        className="w-12 h-12"
+      />
       <GetPositionButton />
-      <p>Clouds: {city?.clouds.all ?? "-"}%</p>
-      <WindCompass />
+      <ProbabilityCalculator city={city} />
+      <p>Temperature: {city?.main.temp ?? "-"} °C</p>
+      <p>Wind speed: {city.wind.speed} m/s</p>
+      <p>Wind gust: {city.wind.gust} m/s</p>
+      <p>Pressure: {city.main.pressure} hpa</p>
+      <p>Cloudiness: {city?.clouds.all ?? "-"}%</p>
       <p>Sunrise {formattedSunriseTime}</p>
+      <AddToFavorites />
+      <WindCompass />
     </div>
   );
 };

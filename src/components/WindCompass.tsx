@@ -20,12 +20,12 @@ const WindCompass = () => {
     <div
       onMouseEnter={onHover}
       onMouseLeave={onLeave}
-      className="flex border-2 rounded-full w-40 h-40  items-center justify-center relative"
+      className="flex border-2 rounded-full w-44 h-44  items-center justify-center relative my-6"
     >
-      <span className=" absolute top-2 font-bold text-lg">N</span>
-      <span className=" absolute bottom-2 font-bold text-lg ">S</span>
-      <span className=" absolute right-2 font-bold text-lg">E</span>
-      <span className=" absolute left-2 font-bold text-lg">W</span>
+      <span className=" absolute top-4 font-bold text-lg">N</span>
+      <span className=" absolute bottom-4 font-bold text-lg ">S</span>
+      <span className=" absolute right-4 font-bold text-lg">E</span>
+      <span className=" absolute left-4 font-bold text-lg">W</span>
       <div style={{ transform: `rotate(${windDirection - 180}deg)` }}>
         <RxThickArrowUp className="animate-pulse text-[30px]" />
       </div>

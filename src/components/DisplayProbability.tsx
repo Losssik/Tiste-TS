@@ -3,7 +3,7 @@ type ProbabilityProp = {
 };
 
 const DisplayProbability = ({ probability }: ProbabilityProp) => {
-  return <p>Probability: {probability}</p>;
+  return <p>Probability: {probability}%</p>;
 };
 
 export default DisplayProbability;
