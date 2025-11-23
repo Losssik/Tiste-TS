@@ -1,4 +1,5 @@
 import CurrentWeather from "../components/CurrentWeather";
+import Footer from "../components/Footer";
 import Map from "../components/Map";
 
 const Home = () => {
@@ -6,6 +7,7 @@ const Home = () => {
     <>
       <CurrentWeather />
       <Map />
+      <Footer />
     </>
   );
 };

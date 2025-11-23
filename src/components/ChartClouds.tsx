@@ -23,7 +23,7 @@ const ChartClouds = () => {
     <ResponsiveContainer width="100%" height={100}>
       <BarChart data={data} responsive>
         <XAxis dataKey="date" hide />
-        <YAxis />
+        <YAxis width={30} />
         <Bar dataKey="clouds" stroke="#3182BD" fill="#3182BD" />
         <Tooltip
           contentStyle={{

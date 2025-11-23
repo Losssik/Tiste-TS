@@ -6,6 +6,7 @@ import {
   useMap,
   Popup,
 } from "react-leaflet";
+
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 import { useEffect, useState } from "react";
@@ -74,7 +75,7 @@ const Map = () => {
         center={markerPosition}
         zoom={13}
         style={{
-          height: "500px",
+          height: "400px",
           width: "100%",
           filter: "brightness(0.7) contrast(1.5)",
         }}

@@ -9,11 +9,11 @@ import DisplayLocation from "../components/DisplayLocation";
 const Conditions = () => {
   return (
     <div>
-      <div className=" ml-5 flex gap-3  items-center">
+      <div className="flex gap-3  items-center">
         <GetPositionButton />
         <DisplayLocation />
       </div>
-      <div className="px-5 py-4 ">
+      <div className=" py-4 ">
         <Map />
       </div>
       <ChartTemperature />

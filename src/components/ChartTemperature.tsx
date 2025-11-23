@@ -23,7 +23,7 @@ const ChartTemperature = () => {
   return (
     <ResponsiveContainer width="100%" height={400}>
       <LineChart data={data}>
-        <YAxis />
+        <YAxis width={20} />
         <XAxis
           dataKey="dt_txt"
           ticks={[

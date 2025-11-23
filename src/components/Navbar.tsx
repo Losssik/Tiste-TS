@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 
 const Navbar = () => {
   return (
-    <nav className="flex justify-between items-center  p-4">
+    <nav className="flex justify-between items-center pt-2">
       <h1>TISTE</h1>
       <div className="flex gap-4 ">
         <Link to="/">Home</Link>
