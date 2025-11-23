@@ -11,7 +11,7 @@ const corsOptions = {
 };
 
 const URL =
-  "https://hydro.imgw.pl/#/list/hydro?rpp=80&pf=0&cols=c,n,r,ic,csv,csd,tc,wv,av,d3";
+  "https://hydro.imgw.pl/#/list/hydro?rpp=20&pf=0&cols=c,n,r,ic,csv,csd,tc,wv,av,d3";
 
 app.use(cors(corsOptions));
 
@@ -39,7 +39,7 @@ app.get("/rivers", async (req: Request, res: Response) => {
     // results
     const results = [];
 
-    for (let i = 0; i < 6; i++) {
+    for (let i = 0; i < 2; i++) {
       await page.waitForSelector("tr:nth-child(2)");
       const rows = await page.$$("tr");
 

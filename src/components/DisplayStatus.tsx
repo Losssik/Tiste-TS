@@ -1,5 +1,6 @@
 import { GrStatusWarning, GrStatusWarningSmall } from "react-icons/gr";
 import { PiMinus } from "react-icons/pi";
+import Tooltip from "./Tooltip";
 
 type StatusProps = {
   status:
@@ -16,20 +17,49 @@ type StatusProps = {
 const DisplayStatus = ({ status }: StatusProps) => {
   switch (status) {
     case "Powyżej stanu alarmowego":
-      return <GrStatusWarning className="text-red-600 text-xl" />;
+      return (
+        <Tooltip text={status}>
+          <GrStatusWarning className="text-red-600 text-xl" />
+        </Tooltip>
+      );
     case "Powyżej stanu ostrzegawczego":
-      return <GrStatusWarning className="text-red-500 text-xl" />;
+      return (
+        <Tooltip text={status}>
+          <GrStatusWarning className="text-red-500 text-xl" />
+        </Tooltip>
+      );
     case "Strefa stanów wysokich":
-      return <GrStatusWarning className="text-yellow-500 text-xl" />;
+      return (
+        <Tooltip text={status}>
+          <GrStatusWarning className="text-yellow-500 text-xl" />
+        </Tooltip>
+      );
     case "Strefa stanów średnich":
-      return <GrStatusWarningSmall className="text-green-500 text-xl" />;
+      return (
+        <Tooltip text={status}>
+          <GrStatusWarningSmall className="text-green-500 text-xl" />
+        </Tooltip>
+      );
     case "Strefa stanów niskich":
-      return <GrStatusWarningSmall className="text-yellow-500 text-xl" />;
+      return (
+        <Tooltip text={status}>
+          <GrStatusWarningSmall className="text-yellow-500 text-xl" />
+        </Tooltip>
+      );
     case "Poniżej minimum okresowego":
-      return <GrStatusWarningSmall className="text-red-500 text-xl" />;
+      return (
+        <Tooltip text={status}>
+          <GrStatusWarningSmall className="text-red-500 text-xl" />
+        </Tooltip>
+      );
     case "Brak danych stanu wody":
     case "Brak stanów charakt./ umownych":
-      return <PiMinus className="text-xl" />;
+      return (
+        <Tooltip text={status}>
+          <PiMinus className="text-xl" />
+        </Tooltip>
+      );
+
     default:
       return <p>{status}</p>;
   }
