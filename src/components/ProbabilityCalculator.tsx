@@ -1,6 +1,7 @@
 import { useWeatherContext } from "../hooks/useWeatherContext";
 import type { WeatherData } from "../types/weather";
 import DisplayProbability from "./DisplayProbability";
+import ProbabilityMessage from "./ProbabilityMessage";
 
 type ProbabilityCalculatorProps = {
   city: WeatherData;
@@ -232,7 +233,12 @@ const ProbabilityCalculator = ({ city }: ProbabilityCalculatorProps) => {
   // min chance 0, max chance 100
   probability = probability >= 100 ? 99 : probability <= 0 ? 1 : probability;
 
-  return <DisplayProbability probability={probability} />;
+  return (
+    <>
+      <DisplayProbability probability={probability} />
+      <ProbabilityMessage probability={probability} />
+    </>
+  );
 };
 
 export default ProbabilityCalculator;

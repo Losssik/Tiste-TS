@@ -31,7 +31,7 @@ const CurrentWeather = () => {
       />
       <GetPositionButton />
       <ProbabilityCalculator city={city} />
-      <p>Temperature: {city?.main.temp ?? "-"} °C</p>
+      <p className="mt-2">Temperature: {city?.main.temp ?? "-"} °C</p>
       <p>Wind speed: {city.wind.speed} m/s</p>
       <p>Wind gust: {city.wind.gust} m/s</p>
       <p>Pressure: {city.main.pressure} hpa</p>
