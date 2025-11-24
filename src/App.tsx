@@ -14,10 +14,7 @@ function App() {
 
   // Fetch when coords change
   useEffect(() => {
-    const fetchCurrentWeather = async (
-      lat: number,
-      lon: number
-    ): Promise<void> => {
+    const fetchCurrentWeather = async (lat: number, lon: number) => {
       try {
         const response = await fetch(
           `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=metric&appid=${

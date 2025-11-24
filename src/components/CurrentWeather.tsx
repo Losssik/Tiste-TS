@@ -16,7 +16,7 @@ const CurrentWeather = () => {
 
   return (
     <div className=" mt-10 flex flex-col justify-center items-center gap-2">
-      <p className=" text-xl">Location: {city?.name ?? ""}</p>
+      <p className=" text-2xl">Location: {city?.name ?? ""}</p>
       <img
         src={iconUrl}
         alt={city?.weather[0].description}

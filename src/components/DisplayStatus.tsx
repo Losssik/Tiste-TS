@@ -11,7 +11,8 @@ type StatusProps = {
     | "Strefa stanów niskich"
     | "Poniżej minimum okresowego"
     | "Brak danych stanu wody"
-    | "Brak stanów charakt./ umownych";
+    | "Brak stanów charakterystycznych"
+    | "Brak stanów charakterystycznych i umownych";
 };
 
 const DisplayStatus = ({ status }: StatusProps) => {
@@ -53,7 +54,8 @@ const DisplayStatus = ({ status }: StatusProps) => {
         </Tooltip>
       );
     case "Brak danych stanu wody":
-    case "Brak stanów charakt./ umownych":
+    case "Brak stanów charakterystycznych":
+    case "Brak stanów charakterystycznych i umownych":
       return (
         <Tooltip text={status}>
           <PiMinus className="text-xl" />

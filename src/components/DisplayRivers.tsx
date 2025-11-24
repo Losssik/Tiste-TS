@@ -1,5 +1,6 @@
 import DisplayStatus from "./DisplayStatus";
 import DisplayWaterLevel from "./DisplayWaterLevel";
+import GetRiverDetails from "./GetRiverDetails";
 
 type River = {
   station_key: string;
@@ -36,7 +37,7 @@ const DisplayRivers = ({ rivers }: RiverProps) => {
         <p>Loading...</p>
       ) : (
         <div>
-          <div className="grid grid-cols-6 gap-2 justify-items-center text-xl bg-yellow-500 text-black italic sticky top-0">
+          <div className="grid grid-cols-6 gap-2 justify-items-center text-xl bg-yellow-500 text-black italic sticky top-0 z-50">
             <h4>station</h4>
             <h4>river</h4>
             <h4>status</h4>
@@ -51,7 +52,10 @@ const DisplayRivers = ({ rivers }: RiverProps) => {
             >
               <p>{river.station}</p>
               {/* removing station code - last word of string */}
-              <p>{river.river.substring(0, river.river.lastIndexOf(" "))}</p>
+              <div className=" text-nowrap">
+                {river.river.substring(0, river.river.lastIndexOf(" "))}
+                <GetRiverDetails station_key={river.station_key} />
+              </div>
               <DisplayStatus status={river.status} />
               <p>{river.water_level}</p>
               <DisplayWaterLevel trend={river.trend} />

@@ -9,6 +9,7 @@ const Rivers = () => {
         const response = await fetch("http://localhost:4000/rivers");
         const data = await response.json();
         setRivers(data.results);
+        console.log(data.results);
       } catch (err) {
         console.log(err);
       }
@@ -16,22 +17,7 @@ const Rivers = () => {
     fetch_rivers();
   }, []);
 
-  const handleScrap = async () => {
-    const res = await fetch("http://localhost:4000/rivers");
-    const data = await res.json();
-
-    console.log(data);
-  };
-
-  return (
-    <div>
-      <h2>rivers page</h2>
-      <button className=" bg-slate-700 p-6" onClick={handleScrap}>
-        scrap
-      </button>
-      <DisplayRivers rivers={rivers} />
-    </div>
-  );
+  return <DisplayRivers rivers={rivers} />;
 };
 
 export default Rivers;

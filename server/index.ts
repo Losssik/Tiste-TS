@@ -11,9 +11,11 @@ const corsOptions = {
 };
 
 const URL =
-  "https://hydro.imgw.pl/#/list/hydro?rpp=20&pf=0&cols=c,n,r,ic,csv,csd,tc,wv,av,d3";
+  "https://hydro.imgw.pl/#/list/hydro?rpp=100&pf=0&cols=c,n,r,ic,csv,csd,tc,wv,av,d3";
 
 app.use(cors(corsOptions));
+
+/* ---------------------------- getting all rivers -------------------------------*/
 
 app.get("/rivers", async (req: Request, res: Response) => {
   try {
@@ -108,6 +110,25 @@ app.get("/rivers", async (req: Request, res: Response) => {
     }
 
     res.status(200).json({ results });
+  } catch (error) {
+    res.status(500).json({ error });
+  }
+});
+
+/* ---------------------------- getting concrete river -------------------------------*/
+
+app.get("/rivers/:id", async (req: Request, res: Response) => {
+  const id = req.params.id;
+  const URL = `https://hydro.imgw.pl/#/station/hydro/${id}`;
+  try {
+    const browser = await puppeteer.launch({
+      headless: false,
+      defaultViewport: null,
+    });
+
+    const page = await browser.newPage();
+    await page.goto(URL);
+    res.status(200).json({ station_id: id });
   } catch (error) {
     res.status(500).json({ error });
   }
