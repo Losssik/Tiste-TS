@@ -5,9 +5,13 @@ import ProbabilityMessage from "./ProbabilityMessage";
 
 type ProbabilityCalculatorProps = {
   city: WeatherData;
+  mode?: "probability" | "message" | "both";
 };
 
-const ProbabilityCalculator = ({ city }: ProbabilityCalculatorProps) => {
+const ProbabilityCalculator = ({
+  city,
+  mode = "both",
+}: ProbabilityCalculatorProps) => {
   const { moon } = useWeatherContext();
 
   let probability = 50;
@@ -233,12 +237,18 @@ const ProbabilityCalculator = ({ city }: ProbabilityCalculatorProps) => {
   // min chance 0, max chance 100
   probability = probability >= 100 ? 99 : probability <= 0 ? 1 : probability;
 
-  return (
-    <>
-      <DisplayProbability probability={probability} />
-      <ProbabilityMessage probability={probability} />
-    </>
-  );
+  if (mode === "both") {
+    return (
+      <>
+        <DisplayProbability probability={probability} />
+        <ProbabilityMessage probability={probability} />
+      </>
+    );
+  }
+  if (mode === "message")
+    return <ProbabilityMessage probability={probability} />;
+  if (mode === "probability")
+    return <DisplayProbability probability={probability} />;
 };
 
 export default ProbabilityCalculator;

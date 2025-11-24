@@ -54,7 +54,7 @@ const GetFavorites = () => {
               />
 
               <RemoveFavorite lat={city.coord.lat} lon={city.coord.lon} />
-              <ProbabilityCalculator city={city} />
+              <ProbabilityCalculator city={city} mode="probability" />
             </div>
           );
         })}
