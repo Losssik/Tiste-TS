@@ -36,7 +36,7 @@ const DisplayRivers = ({ rivers }: RiverProps) => {
         <p>Loading...</p>
       ) : (
         <div>
-          <div className="grid grid-cols-6 gap-2 justify-items-center text-xl bg-yellow-500 sticky top-0">
+          <div className="grid grid-cols-6 gap-2 justify-items-center text-xl bg-yellow-500 text-black italic sticky top-0">
             <h4>station</h4>
             <h4>river</h4>
             <h4>status</h4>

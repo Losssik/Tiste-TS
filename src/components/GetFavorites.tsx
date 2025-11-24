@@ -3,7 +3,6 @@ import FetchFavoriteList from "./FetchFavoriteList";
 import { useWeatherContext } from "../hooks/useWeatherContext";
 import RemoveFavorite from "./RemoveFavorite";
 import FetchAstronomyDetails from "./FetchAstronomyDetails";
-import DisplayAstrologyDetails from "./DisplayAstrologyDetails";
 import ProbabilityCalculator from "./ProbabilityCalculator";
 
 type Favorites = {
@@ -48,11 +47,6 @@ const GetFavorites = () => {
               </p>
               <p>Wind: {city.wind.speed} km/h</p>
               <p>Gust: {city.wind.gust} km/h</p>
-              <DisplayAstrologyDetails
-                lat={city.coord.lat}
-                lon={city.coord.lon}
-              />
-
               <RemoveFavorite lat={city.coord.lat} lon={city.coord.lon} />
               <ProbabilityCalculator city={city} mode="probability" />
             </div>
