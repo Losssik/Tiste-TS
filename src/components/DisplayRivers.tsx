@@ -14,7 +14,8 @@ type River = {
     | "Strefa stanów niskich"
     | "Poniżej minimum okresowego"
     | "Brak danych stanu wody"
-    | "Brak stanów charakt./ umownych";
+    | "Brak stanów charakterystycznych"
+    | "Brak stanów charakterystycznych i umownych";
   water_level: string;
   water_level_in_3hours: string;
   trend: "bez zmian" | "malejący" | "rosnący" | "brak danych";

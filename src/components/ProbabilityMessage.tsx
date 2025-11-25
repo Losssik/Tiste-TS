@@ -9,7 +9,7 @@ const ProbabilityMessage = ({ probability }: Probability) => {
 
   const temp = city?.main.temp as number;
 
-  if (probability <= 15 && temp < -10) {
+  if (probability <= 15 && temp < -7) {
     return (
       <p className="text-red-500 italic">
         bruuuh, STAY HOME!!! water is freezing!!!

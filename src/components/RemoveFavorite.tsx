@@ -1,5 +1,4 @@
 import { useWeatherContext } from "../hooks/useWeatherContext";
-import { GoTrash } from "react-icons/go";
 
 type RemoveFavoriteProps = {
   lat: number;
@@ -28,8 +27,8 @@ const RemoveFavorite = ({ lat, lon }: RemoveFavoriteProps) => {
   };
 
   return (
-    <button onClick={handleRemove}>
-      <GoTrash className=" text-red-500 text-xl " />
+    <button onClick={handleRemove} className="bg-red-500 py-1 px-8 w-full">
+      delete
     </button>
   );
 };
