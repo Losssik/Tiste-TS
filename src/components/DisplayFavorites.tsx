@@ -10,17 +10,14 @@ const DisplayFavorites = ({ city }: Props) => {
 
   // TIME FOR SUNRISE
   const unix_timestamp_of_sunrise = city?.sys.sunrise as number;
-  const sunrise_date = new Date(unix_timestamp_of_sunrise * 1000);
-  const sunrise_hours = sunrise_date.getHours();
-  const sunrise_minutes = sunrise_date.getMinutes();
-  const formatted_sunrise_time = `${sunrise_hours}:${sunrise_minutes}`;
-
+  const sunrise_time = new Date(
+    unix_timestamp_of_sunrise * 1000
+  ).toLocaleTimeString("pl-PL", { hour: "2-digit", minute: "2-digit" });
   // TIME FOR SUNSET
   const unix_timestamp_of_sunset = city.sys.sunset as number;
-  const sunset_date = new Date(unix_timestamp_of_sunset * 1000);
-  const sunset_hours = sunset_date.getHours();
-  const sunset_minutes = sunset_date.getMinutes();
-  const formated_sunset_time = `${sunset_hours}:${sunset_minutes}`;
+  const sunset_time = new Date(
+    unix_timestamp_of_sunset * 1000
+  ).toLocaleTimeString("pl-PL", { hour: "2-digit", minute: "2-digit" });
 
   return (
     <>
@@ -33,8 +30,8 @@ const DisplayFavorites = ({ city }: Props) => {
       <p>{city.main.temp.toFixed(1)} °C</p>
       <p>{city.weather[0].description}</p>
       <p>wind speed: {city.wind.speed} m/s</p>
-      <p>🌅 sunrise: {formatted_sunrise_time}</p>
-      <p>🌇 sunset: {formated_sunset_time}</p>
+      <p>🌅 sunrise: {sunrise_time}</p>
+      <p>🌇 sunset: {sunset_time}</p>
     </>
   );
 };

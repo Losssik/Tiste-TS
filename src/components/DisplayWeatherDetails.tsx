@@ -11,16 +11,19 @@ const DisplayWeatherDetails = () => {
 
   // TIME FOR SUNRISE
   const unix_timestamp_of_sunrise = city?.sys.sunrise as number;
-  const date = new Date(unix_timestamp_of_sunrise * 1000);
-  const hours = date.getHours();
-  const minutes = date.getMinutes();
-  const formattedSunriseTime = `${hours}:${minutes}`;
+  const sunrise_time = new Date(
+    unix_timestamp_of_sunrise * 1000
+  ).toLocaleTimeString("pl-PL", {
+    hour: "2-digit",
+    minute: "2-digit",
+    second: "2-digit",
+  });
 
   return (
     <div className=" flex justify-center items-start flex-col gap-2 ml-2">
       <div className="mt-2 flex justify-center items-center gap-3">
         <FaTemperatureEmpty className=" text-sm" />
-        Temperature: {city?.main.temp ?? "-"} °C
+        Temperature: {city?.main.temp.toFixed(1) ?? "-"} °C
       </div>
       <div className="flex justify-center items-center gap-3">
         <GiWindsock className=" text-sm" />
@@ -40,7 +43,7 @@ const DisplayWeatherDetails = () => {
       </div>
       <div className="flex justify-center items-center gap-3">
         <BsSunrise className="text-sm" />
-        Sunrise {formattedSunriseTime}
+        Sunrise {sunrise_time}
       </div>
     </div>
   );
