@@ -31,7 +31,7 @@ const DisplayRivers = ({ rivers }: RiverProps) => {
       {rivers.length === 0 ? (
         <Spinner />
       ) : (
-        <div>
+        <div className=" overflow-x-hidden">
           <div className="grid grid-cols-6 gap-2 justify-items-center text-xl bg-yellow-500 text-black italic sticky top-0 z-50">
             <h4>station</h4>
             <h4>river</h4>
@@ -47,8 +47,8 @@ const DisplayRivers = ({ rivers }: RiverProps) => {
             >
               <p>{river.station}</p>
               {/* removing station code - last word of string */}
-              <div className=" text-nowrap">
-                {river.river.substring(0, river.river.lastIndexOf(" "))}
+              <div className=" text-nowrap flex justify-center items-center gap-2">
+                <p>{river.river.substring(0, river.river.lastIndexOf(" "))}</p>
                 <GetRiverDetails station_key={river.station_key} />
               </div>
               <DisplayStatus status={river.status} />

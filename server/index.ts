@@ -128,7 +128,14 @@ app.get("/rivers/:id", async (req: Request, res: Response) => {
 
     const page = await browser.newPage();
     await page.goto(URL);
-    res.status(200).json({ station_id: id });
+    await page.waitForSelector(".status-pill-text");
+
+    const water_level_id = await page.$(".status-pill-text");
+    const water_level = await water_level_id?.evaluate((el) =>
+      el.textContent.trim()
+    );
+
+    res.status(200).json({ station_id: id, water_level: water_level });
   } catch (error) {
     res.status(500).json({ error });
   }
