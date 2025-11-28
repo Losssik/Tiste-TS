@@ -4,6 +4,8 @@ import { useEffect, useState } from "react";
 type River = {
   station_id: string;
   water_level: string;
+  station_name: string;
+  previous_water_level: number;
 };
 const RiverDetail = () => {
   const { id } = useParams();
@@ -30,6 +32,8 @@ const RiverDetail = () => {
     <div>
       <div>river id {river.station_id}</div>
       <div>water level {river.water_level}</div>
+      <div>station name: {river.station_name}</div>
+      <div>previous water leverl: {river.previous_water_level}cm</div>
     </div>
   );
 };
