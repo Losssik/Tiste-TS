@@ -219,6 +219,7 @@ app.get("/rivers/:id", async (req: Request, res: Response) => {
     river = river?.substring(0, index);
 
     // river_length
+    // RIVER LENGHT SOMETIMES 7 SOMETIMES 8??????????
     const river_length_id = await row.$(
       "div:nth-child(8) > div > div span:nth-of-type(2)"
     );
