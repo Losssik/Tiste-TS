@@ -25,7 +25,7 @@ type River = {
 type RiverProps = {
   rivers: River[];
 };
-const DisplayRivers = ({ rivers }: RiverProps) => {
+const DisplayRivers = ({ rivers = [] }: RiverProps) => {
   return (
     <div>
       {rivers.length === 0 ? (

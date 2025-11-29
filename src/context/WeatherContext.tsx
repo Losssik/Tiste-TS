@@ -27,6 +27,23 @@ type MoonPhase = {
   sunset: string;
 };
 
+type River = {
+  station_id: string;
+  water_level: number;
+  river_status: string;
+  station_name: string;
+  previous_water_level: number;
+  trend: string;
+  history_minimum: string;
+  history_maximum: string;
+  river: string;
+  river_length: string;
+  coords: {
+    lat: number;
+    lon: number;
+  };
+};
+
 type WeatherState = {
   city: WeatherData | null;
   coords: Coords | null;
@@ -34,6 +51,7 @@ type WeatherState = {
   favorites: WeatherData[] | [];
   moonPhases: MoonPhase[] | [];
   moon: Moon | null;
+  river: River | null;
 };
 
 type WeatherAction =
@@ -43,6 +61,7 @@ type WeatherAction =
   | { type: "ADD_FAVORITE"; payload: WeatherData }
   | { type: "REMOVE_FAVORITE"; payload: Coords }
   | { type: "GET_MOON"; payload: Moon }
+  | { type: "GET_RIVER"; payload: River }
   | { type: "GET_MOON_PHASE"; payload: MoonPhase };
 
 type WeatherContextType = {
@@ -53,6 +72,7 @@ type WeatherContextType = {
   favorites: WeatherData[] | [];
   moonPhases: MoonPhase[] | [];
   moon: Moon | null;
+  river: River | null;
 };
 
 export const WeatherContext = createContext<WeatherContextType | undefined>(
@@ -63,6 +83,8 @@ export const weatherReducer = (state: WeatherState, action: WeatherAction) => {
   switch (action.type) {
     case "GET_WEATHER":
       return { ...state, city: action.payload };
+    case "GET_RIVER":
+      return { ...state, river: action.payload };
     case "SET_COORDS":
       return { ...state, coords: action.payload };
     case "GET_MOON":
@@ -99,6 +121,7 @@ export const WeatherContextProvider = ({ children }: ChildrenProp) => {
     favorites: [],
     moonPhases: [],
     moon: null,
+    river: null,
   });
 
   return (

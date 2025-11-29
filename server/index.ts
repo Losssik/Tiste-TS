@@ -71,7 +71,7 @@ app.get("/rivers", async (req: Request, res: Response) => {
           !water_level_in_3hours_id ||
           !trend_id
         )
-          throw new Error("no data!");
+          continue;
 
         // getting data
         const station_key = await station_key_id.evaluate((el) =>
@@ -133,16 +133,22 @@ app.get("/rivers/:id", async (req: Request, res: Response) => {
     await page.waitForSelector(
       "div.d-flex.flex-column.ms-3.mt-1.ng-star-inserted span"
     );
+
     // table rows
     const row = await page.waitForSelector("div.station-details-table-like");
+    if (!row) {
+      throw new Error("nie ma row");
+    }
 
+    // getting spans with cords
     const coordSpans = await page.$(
       "div.d-flex.flex-column.ms-3.mt-1.ng-star-inserted"
     );
-
     if (!coordSpans) {
       throw new Error("nie ma spanow");
     }
+
+    // getting cords
     const lat_id = await coordSpans?.$("span:nth-child(1)");
     const lat = await lat_id?.evaluate((el) => el.textContent.trim());
     const lat_number = parseFloat(lat!);
@@ -151,19 +157,27 @@ app.get("/rivers/:id", async (req: Request, res: Response) => {
     const lon = await lon_id?.evaluate((el) => el.textContent.trim());
     const lon_number = parseFloat(lon!);
 
+    // water level
     const water_level_id = await page.$(".status-pill-text");
     const water_level = await water_level_id?.evaluate((el) =>
       el.textContent.trim()
     );
+    // converting to number
     const water_level_number = parseFloat(water_level!);
+
+    // station name
     const station_name_id = await page.$("span.fw-semibold.fs-3");
     const station_name = await station_name_id?.evaluate((el) =>
       el.textContent.trim()
     );
 
-    if (!row) {
-      throw new Error("nie ma row");
-    }
+    // river status
+    const river_status_id = await page.$(
+      "div.header-right div.d-flex.ng-star-inserted div.text-nowrap > img"
+    );
+    const river_status = await river_status_id?.evaluate((el) =>
+      el.getAttribute("alt")
+    );
 
     // previous water level
     const previous_water_level_id = await row.$(
@@ -216,6 +230,7 @@ app.get("/rivers/:id", async (req: Request, res: Response) => {
 
     res.status(200).json({
       station_id: id,
+      river_status: river_status,
       water_level: water_level_number,
       station_name: station_name,
       previous_water_level: previous_water_depth,
