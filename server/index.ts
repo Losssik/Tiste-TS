@@ -212,19 +212,26 @@ app.get("/rivers/:id", async (req: Request, res: Response) => {
     );
 
     // river
-    const river_id = await row.$("div:nth-child(8) > div > span.status");
-    let river = await river_id?.evaluate((el) => el.textContent.trim());
+    // river name sometimes is placed in 7 row, but sometimes in 8 - so we grab ID conditionally
+    const river_id = await row.$("div:nth-child(7) > div > span.status");
+    const river_id_2 = await row.$("div:nth-child(8) > div > span.status");
+    let river = await (river_id ?? river_id_2)!.evaluate((el) =>
+      el.textContent.trim()
+    );
     // removing river code
     const index = river?.lastIndexOf(" ");
     river = river?.substring(0, index);
 
     // river_length
-    // RIVER LENGHT SOMETIMES 7 SOMETIMES 8??????????
+    // river length sometimes is placed in 7 row, but sometimes in 8 - so we grab ID conditionally
     const river_length_id = await row.$(
+      "div:nth-child(7) > div > div span:nth-of-type(2)"
+    );
+    const river_length_id_2 = await row.$(
       "div:nth-child(8) > div > div span:nth-of-type(2)"
     );
-    let river_length = await river_length_id?.evaluate((el) =>
-      el.textContent.trim()
+    let river_length = await (river_length_id ?? river_length_id_2)!.evaluate(
+      (el) => el.textContent.trim()
     );
     // formatting to get only a number
     river_length = river_length?.slice(4, -1);

@@ -14,7 +14,7 @@ const RiverMap = () => {
   const position: Position = [river?.coords?.lat ?? 0, river?.coords?.lon ?? 0];
   const [markerPosition, setMarkerPosition] = useState<Position>(position);
   const [lat, setLat] = useState(position[0]);
-  const [lng, setLon] = useState(position[1]);
+  const [lon, setLon] = useState(position[1]);
 
   // when coords are changing then update marker on the map
   useEffect(() => {
@@ -60,9 +60,9 @@ const RiverMap = () => {
 
         <FlyTo />
       </MapContainer>
-      <FetchWeather lat={lat} lng={lng} />
-      <FetchForecastWeather lat={lat} lng={lng} />
-      <FetchMoon lat={lat} lon={lng} />
+      <FetchWeather lat={lat} lng={lon} />
+      <FetchForecastWeather lat={lat} lng={lon} />
+      <FetchMoon lat={lat} lon={lon} />
     </div>
   );
 };
