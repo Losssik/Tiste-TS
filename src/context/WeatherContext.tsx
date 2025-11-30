@@ -27,7 +27,7 @@ type MoonPhase = {
   sunset: string;
 };
 
-type River = {
+export type River = {
   station_id: string;
   water_level: number;
   river_status: string;
@@ -37,7 +37,7 @@ type River = {
   history_minimum: string;
   history_maximum: string;
   river: string;
-  river_length: string;
+  river_length: number;
   coords: {
     lat: number;
     lon: number;

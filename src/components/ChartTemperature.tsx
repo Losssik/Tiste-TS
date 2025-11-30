@@ -9,11 +9,12 @@ import {
   CartesianGrid,
 } from "recharts";
 import { useWeatherContext } from "../hooks/useWeatherContext";
+import Spinner from "./Spinner";
 
 const ChartTemperature = () => {
   const { forecast } = useWeatherContext();
 
-  if (!forecast) return <p>loading</p>;
+  if (!forecast) return <Spinner />;
 
   const data = forecast.list.map((item) => ({
     temperature: item.main.temp.toFixed(1),

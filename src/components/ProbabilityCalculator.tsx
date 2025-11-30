@@ -1,3 +1,4 @@
+import type { River } from "../context/WeatherContext";
 import { useWeatherContext } from "../hooks/useWeatherContext";
 import type { WeatherData } from "../types/weather";
 import DisplayProbability from "./DisplayProbability";
@@ -6,11 +7,13 @@ import ProbabilityMessage from "./ProbabilityMessage";
 type ProbabilityCalculatorProps = {
   city: WeatherData;
   mode?: "probability" | "message" | "both";
+  river?: River;
 };
 
 const ProbabilityCalculator = ({
   city,
   mode = "both",
+  river,
 }: ProbabilityCalculatorProps) => {
   const { moon } = useWeatherContext();
 
@@ -232,6 +235,15 @@ const ProbabilityCalculator = ({
     probability -= 5;
   } else {
     probability += 0;
+  }
+
+  console.log("PROP river:", river);
+
+  // ADDITIONAL CONDITIONS FOR RIVERS
+  // test condition
+  const water_level = river?.water_level as number;
+  if (water_level > 2) {
+    probability += 100;
   }
 
   // min chance 0, max chance 100

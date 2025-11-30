@@ -10,10 +10,11 @@ import {
   ReferenceLine,
 } from "recharts";
 import { useWeatherContext } from "../hooks/useWeatherContext";
+import Spinner from "./Spinner";
 
 const ChartPressure = () => {
   const { forecast } = useWeatherContext();
-  if (!forecast) return <p>Loading forecast…</p>;
+  if (!forecast) return <Spinner />;
 
   const data = forecast.list.map((item) => ({
     pressure: item.main.pressure,

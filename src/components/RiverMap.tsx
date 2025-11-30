@@ -4,7 +4,6 @@ import "leaflet/dist/leaflet.css";
 import { useEffect, useState } from "react";
 import FetchWeather from "./FetchWeather";
 import { useWeatherContext } from "../hooks/useWeatherContext";
-import FetchForecastWeather from "./FetchForecastWeather";
 import FetchMoon from "./FetchMoon";
 
 type Position = [lat: number, lon: number];
@@ -61,7 +60,6 @@ const RiverMap = () => {
         <FlyTo />
       </MapContainer>
       <FetchWeather lat={lat} lng={lon} />
-      <FetchForecastWeather lat={lat} lng={lon} />
       <FetchMoon lat={lat} lon={lon} />
     </div>
   );

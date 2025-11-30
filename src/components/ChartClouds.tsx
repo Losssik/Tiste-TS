@@ -8,11 +8,12 @@ import {
   YAxis,
 } from "recharts";
 import { useWeatherContext } from "../hooks/useWeatherContext";
+import Spinner from "./Spinner";
 
 const ChartClouds = () => {
   const { forecast } = useWeatherContext();
 
-  if (!forecast) return <p>Loading...</p>;
+  if (!forecast) return <Spinner />;
 
   const data = forecast.list.map((item) => ({
     clouds: item.clouds.all,
