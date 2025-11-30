@@ -12,7 +12,8 @@ type StatusProps = {
     | "Poniżej minimum okresowego"
     | "Brak danych stanu wody"
     | "Brak stanów charakterystycznych"
-    | "Brak stanów charakterystycznych i umownych";
+    | "Brak stanów charakterystycznych i umownych"
+    | string;
 };
 
 const DisplayStatus = ({ status }: StatusProps) => {

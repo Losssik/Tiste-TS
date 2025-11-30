@@ -29,9 +29,9 @@ const DisplayRivers = ({ rivers = [] }: RiverProps) => {
   return (
     <div>
       {rivers.length === 0 ? (
-        <Spinner />
+        <p>loading..</p>
       ) : (
-        <div className=" overflow-x-hidden">
+        <div className=" relative">
           <div className="grid grid-cols-6 gap-2 justify-items-center text-xl bg-yellow-500 text-black italic sticky top-0 z-50">
             <h4>station</h4>
             <h4>river</h4>

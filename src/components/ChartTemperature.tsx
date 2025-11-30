@@ -37,7 +37,6 @@ const ChartTemperature = () => {
         <CartesianGrid stroke="#13226A" />
         <Line
           dataKey="temperature"
-          type="monotone"
           name="temp"
           stroke="#3182BD"
           strokeWidth={1}

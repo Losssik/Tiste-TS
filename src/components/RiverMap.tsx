@@ -5,12 +5,14 @@ import { useEffect, useState } from "react";
 import FetchWeather from "./FetchWeather";
 import { useWeatherContext } from "../hooks/useWeatherContext";
 import FetchMoon from "./FetchMoon";
+import FetchForecastWeather from "./FetchForecastWeather";
 
 type Position = [lat: number, lon: number];
 
 const RiverMap = () => {
   const { river } = useWeatherContext();
   const position: Position = [river?.coords?.lat ?? 0, river?.coords?.lon ?? 0];
+  // marker position from leaflet expects array
   const [markerPosition, setMarkerPosition] = useState<Position>(position);
   const [lat, setLat] = useState(position[0]);
   const [lon, setLon] = useState(position[1]);
@@ -60,6 +62,7 @@ const RiverMap = () => {
         <FlyTo />
       </MapContainer>
       <FetchWeather lat={lat} lng={lon} />
+      <FetchForecastWeather lat={lat} lng={lon} />
       <FetchMoon lat={lat} lon={lon} />
     </div>
   );
