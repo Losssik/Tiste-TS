@@ -56,7 +56,7 @@ const ProbabilityCalculator = ({
     probability -= 30;
   }
 
-  // countries
+  // countries - its hard to catch anything in Poland :(
   if (country === "PL") {
     probability -= 6;
   }
@@ -80,11 +80,15 @@ const ProbabilityCalculator = ({
   } else if (temperature < 5) {
     probability -= 5;
   } else if (temperature < 10) {
-    probability += 5;
+    probability -= 3;
+  } else if (temperature < 14) {
+    probability -= 1;
+  } else if (temperature < 18) {
+    probability += 3;
   } else if (temperature < 22) {
-    probability += 10;
-  } else if (temperature < 25) {
     probability += 5;
+  } else if (temperature < 25) {
+    probability += 3;
   } else if (temperature > 25) {
     probability -= 5;
   }
@@ -163,9 +167,9 @@ const ProbabilityCalculator = ({
 
   // rain
   if (rain_amount === 0) {
-    probability += 5;
+    probability += 2;
   } else if (rain_amount < 2) {
-    probability += 10;
+    probability += 11;
   } else if (rain_amount < 5) {
     probability += 5;
   } else if (rain_amount >= 5) {
@@ -178,11 +182,11 @@ const ProbabilityCalculator = ({
   } else if (snow_amount < 2) {
     probability -= 5;
   } else if (snow_amount < 5) {
-    probability -= 12;
-  } else if (snow_amount < 8) {
     probability -= 16;
+  } else if (snow_amount < 8) {
+    probability -= 20;
   } else if (snow_amount > 8) {
-    probability -= 22;
+    probability -= 32;
   }
 
   //moon
@@ -239,11 +243,58 @@ const ProbabilityCalculator = ({
 
   console.log("PROP river:", river);
 
-  // ADDITIONAL CONDITIONS FOR RIVERS
+  //------------------ ADDITIONAL CONDITIONS FOR RIVERS----------------------//
   // test condition
-  const water_level = river?.water_level as number;
-  if (water_level > 2) {
-    probability += 100;
+  // const water_level = river?.water_level as number;
+  // if (water_level > 2) {
+  //   probability += 100;
+  // }
+
+  // River status
+  type RiverStatus =
+    | "Powyżej stanu alarmowego"
+    | "Powyżej stanu ostrzegawczego"
+    | "Strefa stanów wysokich"
+    | "Strefa stanów średnich"
+    | "Strefa stanów niskich"
+    | "Poniżej minimum okresowego";
+
+  const river_status = river?.river_status as RiverStatus;
+
+  if (river_status === "Powyżej stanu alarmowego") {
+    probability -= 80;
+  }
+  if (river_status === "Powyżej stanu ostrzegawczego") {
+    probability -= 60;
+  }
+  if (river_status === "Strefa stanów wysokich") {
+    probability -= 19;
+  }
+  if (river_status === "Strefa stanów średnich") {
+    probability += 5;
+  }
+  if (river_status === "Strefa stanów niskich") {
+    probability += 8;
+  }
+  if (river_status === "Poniżej minimum okresowego") {
+    probability -= 8;
+  }
+
+  // RIVER TREND
+  type RiverTrend = "bez zmian" | "malejący" | "rosnący" | "brak danych";
+  const river_trend = river?.trend as RiverTrend;
+
+  if (river_trend === "rosnący") {
+    probability -= 8;
+  }
+  if (river_trend === "malejący") {
+    probability += 5;
+  }
+  if (river_trend === "malejący" && river_status === "Strefa stanów wysokich") {
+    probability += 3;
+  }
+  if (river_trend === "malejący" && river_status === "Strefa stanów średnich") {
+    probability += 2;
   }
 
   // min chance 0, max chance 100

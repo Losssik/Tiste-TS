@@ -191,6 +191,14 @@ app.get("/rivers/:id", async (req: Request, res: Response) => {
       previous_water_level?.replace(/ .*/, "")
     );
 
+    // previous water level time
+    const previous_water_level_time_id = await row.$(
+      "div:nth-child(2) > div > span.date > span"
+    );
+    const previous_water_level_time =
+      await previous_water_level_time_id?.evaluate((el) =>
+        el.textContent.trim()
+      );
     // trend
     const trend_id = await row.$("div:nth-child(3) span.status span.alt-span");
     const trend = await trend_id?.evaluate((el) => el.textContent.trim());
@@ -242,6 +250,7 @@ app.get("/rivers/:id", async (req: Request, res: Response) => {
       water_level: water_level_number,
       station_name: station_name,
       previous_water_level: previous_water_depth,
+      previous_water_level_time: previous_water_level_time,
       trend: trend,
       history_minimum: history_minimum,
       history_maximum: history_maximum,

@@ -38,6 +38,9 @@ const DisplayRiver = () => {
           </p>
           <p className=" border-t-2 border-blue-900 py-1">
             Previous water level: {river.previous_water_level} cm
+            <span className=" ml-2 italic text-sm">
+              ({river.previous_water_level_time})
+            </span>
           </p>
           <p className=" border-t-2 border-blue-900 py-1">
             River length: {river?.river_length} km

@@ -33,6 +33,7 @@ export type River = {
   river_status: string;
   station_name: string;
   previous_water_level: number;
+  previous_water_level_time: string;
   trend: string;
   history_minimum: string;
   history_maximum: string;
