@@ -29,7 +29,7 @@ const DisplayRivers = ({ rivers = [] }: RiverProps) => {
   return (
     <div>
       {rivers.length === 0 ? (
-        <p>loading..</p>
+        <Spinner />
       ) : (
         <div className=" relative">
           <div className="grid grid-cols-6 gap-2 justify-items-center text-xl bg-yellow-500 text-black italic sticky top-0 z-50">

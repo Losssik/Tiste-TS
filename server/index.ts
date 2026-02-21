@@ -21,7 +21,7 @@ app.use(cors(corsOptions));
 app.get("/rivers", async (req: Request, res: Response) => {
   try {
     const browser = await puppeteer.launch({
-      headless: false,
+      headless: true,
       defaultViewport: null,
     });
     const page = await browser.newPage();
@@ -75,19 +75,19 @@ app.get("/rivers", async (req: Request, res: Response) => {
 
         // getting data
         const station_key = await station_key_id.evaluate((el) =>
-          el.textContent.trim()
+          el.textContent.trim(),
         );
         const station = await station_id.evaluate((el) =>
-          el.textContent.trim()
+          el.textContent.trim(),
         );
         const river = await river_id.evaluate((el) => el.textContent?.trim());
         const status = await status_id.evaluate((el) => el.getAttribute("alt"));
         const water_level = await water_id.evaluate((el) =>
-          el.textContent.trim()
+          el.textContent.trim(),
         );
         const trend = await trend_id.evaluate((el) => el.textContent.trim());
         const water_level_in_3hours = await water_level_in_3hours_id.evaluate(
-          (el) => el.textContent.trim()
+          (el) => el.textContent.trim(),
         );
 
         results.push({
@@ -116,14 +116,14 @@ app.get("/rivers", async (req: Request, res: Response) => {
   }
 });
 
-/* ---------------------------- getting concrete river -------------------------------*/
+/* ---------------------------- getting river based on ID -------------------------------*/
 
 app.get("/rivers/:id", async (req: Request, res: Response) => {
   const id = req.params.id;
   const URL = `https://hydro.imgw.pl/#/station/hydro/${id}`;
   try {
     const browser = await puppeteer.launch({
-      headless: false,
+      headless: true,
       defaultViewport: null,
     });
 
@@ -131,7 +131,7 @@ app.get("/rivers/:id", async (req: Request, res: Response) => {
     await page.goto(URL);
     await page.waitForSelector(".status-pill-text");
     await page.waitForSelector(
-      "div.d-flex.flex-column.ms-3.mt-1.ng-star-inserted span"
+      "div.d-flex.flex-column.ms-3.mt-1.ng-star-inserted span",
     );
 
     // table rows
@@ -142,7 +142,7 @@ app.get("/rivers/:id", async (req: Request, res: Response) => {
 
     // getting spans with cords
     const coordSpans = await page.$(
-      "div.d-flex.flex-column.ms-3.mt-1.ng-star-inserted"
+      "div.d-flex.flex-column.ms-3.mt-1.ng-star-inserted",
     );
     if (!coordSpans) {
       throw new Error("nie ma spanow");
@@ -160,7 +160,7 @@ app.get("/rivers/:id", async (req: Request, res: Response) => {
     // water level
     const water_level_id = await page.$(".status-pill-text");
     const water_level = await water_level_id?.evaluate((el) =>
-      el.textContent.trim()
+      el.textContent.trim(),
     );
     // converting to number
     const water_level_number = parseFloat(water_level!);
@@ -168,36 +168,36 @@ app.get("/rivers/:id", async (req: Request, res: Response) => {
     // station name
     const station_name_id = await page.$("span.fw-semibold.fs-3");
     const station_name = await station_name_id?.evaluate((el) =>
-      el.textContent.trim()
+      el.textContent.trim(),
     );
 
     // river status
     const river_status_id = await page.$(
-      "div.header-right div.d-flex.ng-star-inserted div.text-nowrap > img"
+      "div.header-right div.d-flex.ng-star-inserted div.text-nowrap > img",
     );
     const river_status = await river_status_id?.evaluate((el) =>
-      el.getAttribute("alt")
+      el.getAttribute("alt"),
     );
 
     // previous water level
     const previous_water_level_id = await row.$(
-      "div:nth-child(2) > div > span.status"
+      "div:nth-child(2) > div > span.status",
     );
     const previous_water_level = await previous_water_level_id?.evaluate((el) =>
-      el.textContent.trim()
+      el.textContent.trim(),
     );
     // getting first word from string as number
     const previous_water_depth = Number(
-      previous_water_level?.replace(/ .*/, "")
+      previous_water_level?.replace(/ .*/, ""),
     );
 
     // previous water level time
     const previous_water_level_time_id = await row.$(
-      "div:nth-child(2) > div > span.date > span"
+      "div:nth-child(2) > div > span.date > span",
     );
     const previous_water_level_time =
       await previous_water_level_time_id?.evaluate((el) =>
-        el.textContent.trim()
+        el.textContent.trim(),
       );
     // trend
     const trend_id = await row.$("div:nth-child(3) span.status span.alt-span");
@@ -205,18 +205,18 @@ app.get("/rivers/:id", async (req: Request, res: Response) => {
 
     // history minimum
     const history_minimum_id = await row.$(
-      "div:nth-child(5) > div > span.status"
+      "div:nth-child(5) > div > span.status",
     );
     const history_minimum = await history_minimum_id?.evaluate((el) =>
-      el.textContent.trim()
+      el.textContent.trim(),
     );
 
     // history maximum
     const history_maximum_id = await row.$(
-      "div:nth-child(6) > div > span.status"
+      "div:nth-child(6) > div > span.status",
     );
     const history_maximum = await history_maximum_id?.evaluate((el) =>
-      el.textContent.trim()
+      el.textContent.trim(),
     );
 
     // river
@@ -224,7 +224,7 @@ app.get("/rivers/:id", async (req: Request, res: Response) => {
     const river_id = await row.$("div:nth-child(8) > div > span.status");
     const river_id_2 = await row.$("div:nth-child(7) > div > span.status");
     let river = await (river_id ?? river_id_2)!.evaluate((el) =>
-      el.textContent.trim()
+      el.textContent.trim(),
     );
     // removing river code
     const index = river?.lastIndexOf(" ");
@@ -233,13 +233,13 @@ app.get("/rivers/:id", async (req: Request, res: Response) => {
     // river_length
     // river length sometimes is placed in 7 row, but sometimes in 8 - so we grab ID conditionally
     const river_length_id = await row.$(
-      "div:nth-child(8) > div > div span:nth-of-type(2)"
+      "div:nth-child(8) > div > div span:nth-of-type(2)",
     );
     const river_length_id_2 = await row.$(
-      "div:nth-child(7) > div > div span:nth-of-type(2)"
+      "div:nth-child(7) > div > div span:nth-of-type(2)",
     );
     let river_length = await (river_length_id ?? river_length_id_2)!.evaluate(
-      (el) => el.textContent.trim()
+      (el) => el.textContent.trim(),
     );
     // formatting to get only a number
     river_length = river_length?.slice(4, -1);
