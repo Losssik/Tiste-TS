@@ -21,37 +21,37 @@ const DisplayStatus = ({ status }: StatusProps) => {
     case "Powyżej stanu alarmowego":
       return (
         <Tooltip text={status}>
-          <GrStatusWarning className="text-red-600 text-xl" />
+          <GrStatusWarning className="text-red-600 text-sm md:text-lg" />
         </Tooltip>
       );
     case "Powyżej stanu ostrzegawczego":
       return (
         <Tooltip text={status}>
-          <GrStatusWarning className="text-red-500 text-xl" />
+          <GrStatusWarning className="text-red-500 text-sm md:text-lg" />
         </Tooltip>
       );
     case "Strefa stanów wysokich":
       return (
         <Tooltip text={status}>
-          <GrStatusWarning className="text-yellow-500 text-xl" />
+          <GrStatusWarning className="text-yellow-500 text-sm md:text-lg" />
         </Tooltip>
       );
     case "Strefa stanów średnich":
       return (
         <Tooltip text={status}>
-          <GrStatusWarningSmall className="text-green-500 text-xl" />
+          <GrStatusWarningSmall className="text-green-500 text-sm md:text-lg" />
         </Tooltip>
       );
     case "Strefa stanów niskich":
       return (
         <Tooltip text={status}>
-          <GrStatusWarningSmall className="text-yellow-500 text-xl" />
+          <GrStatusWarningSmall className="text-yellow-500 text-sm md:text-lg" />
         </Tooltip>
       );
     case "Poniżej minimum okresowego":
       return (
         <Tooltip text={status}>
-          <GrStatusWarningSmall className="text-red-500 text-xl" />
+          <GrStatusWarningSmall className="text-red-500 text-sm md:text-lg" />
         </Tooltip>
       );
     case "Brak danych stanu wody":

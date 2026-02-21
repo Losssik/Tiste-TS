@@ -5,7 +5,7 @@ export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <nav className="relative py-2 flex justify-between items-center ">
+    <nav className=" py-2 flex justify-between items-center ">
       <Link to="/" className="font-bold text-xl">
         TISTE
       </Link>
@@ -30,7 +30,7 @@ export default function Navbar() {
 
       {/* Mobile fullscreen menu */}
       {isOpen && (
-        <div className="fixed top-0 left-0 w-full h-screen bg-blue-950 flex flex-col justify-center items-center md:hidden z-40">
+        <div className="fixed inset-0 z-40 bg-blue-950 flex flex-col justify-center items-center md:hidden">
           <Link
             to="/about"
             className="py-4 text-2xl"
